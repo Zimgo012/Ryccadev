@@ -1,0 +1,173 @@
+---
+/**
+ * DoubleArrow — dimension/annotation arrow.
+ * Horizontal:  <——— label ———>
+ * Vertical:    same, rotated 90°
+ *
+ * Props:
+ *   label?     — text in the middle (omit for plain arrow)
+ *   direction? — 'horizontal' (default) | 'vertical'
+ *   color?     — stroke/fill color (default: var(--ml-outline))
+ *   fontSize?  — label font size in px (default: 11)
+ *   gap?       — padding between label and lines in px (default: 8)
+ *   id?        — forwarded to root element
+ *   class?     — extra classes on root element
+ */
+interface Props {
+  label?:     string;
+  direction?: 'horizontal' | 'vertical';
+  color?:     string;
+  fontSize?:  number;
+  gap?:       number;
+  id?:        string;
+  class?:     string;
+}
+
+const {
+  label,
+  direction = 'horizontal',
+  color,
+  fontSize  = 11,
+  gap       = 8,
+  id,
+  class: className = '',
+} = Astro.props;
+
+const isH   = direction === 'horizontal';
+const headW = 6;
+const headH = 5;
+// CSS color — falls back to the design system outline token
+const c = color ?? 'var(--ml-outline)';
+---
+
+{isH ? (
+  /* ── Horizontal ─────────────────────────────────────────── */
+  <div
+    class:list={['double-arrow double-arrow--h', className]}
+    id={id}
+    style={`--arrow-color:${c};--arrow-fs:${fontSize}px;--arrow-gap:${gap}px;`}
+  >
+    {/* Left arrowhead — points left */}
+    <svg
+      class="arrow-head"
+      width={headW}
+      height={headH * 2}
+      viewBox={`0 0 ${headW} ${headH * 2}`}
+      aria-hidden="true"
+    >
+      <polygon points={`${headW},${headH} 0,0 0,${headH * 2}`} fill={c} />
+    </svg>
+
+    <div class="arrow-line"></div>
+
+    {label && (
+      <>
+        <span class="arrow-label">{label}</span>
+        <div class="arrow-line"></div>
+      </>
+    )}
+
+    {/* Right arrowhead — points right (flipped) */}
+    <svg
+      class="arrow-head arrow-head--flip"
+      width={headW}
+      height={headH * 2}
+      viewBox={`0 0 ${headW} ${headH * 2}`}
+      aria-hidden="true"
+    >
+      <polygon points={`${headW},${headH} 0,0 0,${headH * 2}`} fill={c} />
+    </svg>
+  </div>
+) : (
+  /* ── Vertical ───────────────────────────────────────────── */
+  <div
+    class:list={['double-arrow double-arrow--v', className]}
+    id={id}
+    style={`--arrow-color:${c};--arrow-fs:${fontSize}px;--arrow-gap:${gap}px;`}
+  >
+    {/* Top arrowhead — points up */}
+    <svg
+      class="arrow-head-v"
+      width={headH * 2}
+      height={headW}
+      viewBox={`0 0 ${headH * 2} ${headW}`}
+      aria-hidden="true"
+    >
+      <polygon points={`${headH},0 0,${headW} ${headH * 2},${headW}`} fill={c} />
+    </svg>
+
+    <div class="arrow-line-v"></div>
+
+    {label && (
+      <>
+        <span class="arrow-label arrow-label--v">{label}</span>
+        <div class="arrow-line-v"></div>
+      </>
+    )}
+
+    {/* Bottom arrowhead — points down */}
+    <svg
+      class="arrow-head-v"
+      width={headH * 2}
+      height={headW}
+      viewBox={`0 0 ${headH * 2} ${headW}`}
+      aria-hidden="true"
+    >
+      <polygon points={`0,0 ${headH * 2},0 ${headH},${headW}`} fill={c} />
+    </svg>
+  </div>
+)}
+
+<style>
+  /* ── Horizontal ──────────────────────────────────────────── */
+  .double-arrow--h {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .arrow-line {
+    flex: 1;
+    height: 1px;
+    background: var(--arrow-color);
+    align-self: center;
+  }
+
+  .arrow-head { display: block; flex-shrink: 0; }
+  .arrow-head--flip { transform: scaleX(-1); }
+
+  .arrow-label {
+    flex-shrink: 0;
+    padding: 0 var(--arrow-gap);
+    font-size: var(--arrow-fs);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--arrow-color);
+    white-space: nowrap;
+  }
+
+  /* ── Vertical ────────────────────────────────────────────── */
+  .double-arrow--v {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+
+  .arrow-line-v {
+    flex: 1;
+    width: 1px;
+    background: var(--arrow-color);
+  }
+
+  .arrow-head-v { display: block; flex-shrink: 0; }
+
+  .arrow-label--v {
+    padding: var(--arrow-gap) 0;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+  }
+</style>

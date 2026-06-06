@@ -1,0 +1,198 @@
+@import "tailwindcss";
+
+/* ============================================================
+   MACHINE LOGIC — Design System Tokens
+   Neo-Brutalism / Terminal UI
+   ============================================================ */
+
+@theme {
+  /* --- Typography --- */
+  --font-sans: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* --- Spacing (8px base unit) --- */
+  --spacing-unit: 8px;
+
+  /* --- Container --- */
+  --container-max: 1200px;
+}
+
+/* ============================================================
+   THEME TOKENS — Dark (default)
+   ============================================================ */
+
+:root,
+[data-theme="dark"] {
+  --ml-background:               #121414;
+  --ml-surface:                  #121414;
+  --ml-surface-dim:              #121414;
+  --ml-surface-bright:           #383939;
+  --ml-surface-container-lowest: #0d0e0f;
+  --ml-surface-container-low:    #1b1c1c;
+  --ml-surface-container:        #1f2020;
+  --ml-surface-container-high:   #292a2a;
+  --ml-surface-container-highest:#343535;
+  --ml-on-surface:               #e3e2e2;
+  --ml-on-surface-variant:       #c4c7c8;
+  --ml-outline:                  #8e9192;
+  --ml-outline-variant:          #444748;
+  --ml-primary:                  #ffffff;
+  --ml-on-primary:               #2f3131;
+  --ml-secondary:                #c6c6c6;
+  --ml-on-secondary:             #303030;
+
+  /* Grid line colors (RGB only, used with rgba()) */
+  --ml-grid-major-rgb:           68, 71, 72;   /* outline-variant */
+  --ml-grid-minor-rgb:           68, 71, 72;
+  --ml-grid-major-opacity:       0.55;
+  --ml-grid-minor-opacity:       0.15;
+
+  /* Vignette color */
+  --ml-vignette-rgb:             13, 14, 15;
+}
+
+/* ============================================================
+   THEME TOKENS — Light
+   Inverted: white canvas, dark ink, same structural logic
+   ============================================================ */
+
+[data-theme="light"] {
+  --ml-background:               #f4f4f4;
+  --ml-surface:                  #f4f4f4;
+  --ml-surface-dim:              #e8e8e8;
+  --ml-surface-bright:           #ffffff;
+  --ml-surface-container-lowest: #ffffff;
+  --ml-surface-container-low:    #efefef;
+  --ml-surface-container:        #e8e8e8;
+  --ml-surface-container-high:   #dedede;
+  --ml-surface-container-highest:#d4d4d4;
+  --ml-on-surface:               #1a1a1a;
+  --ml-on-surface-variant:       #3a3a3a;
+  --ml-outline:                  #6e7070;
+  --ml-outline-variant:          #b8bbbc;
+  --ml-primary:                  #000000;
+  --ml-on-primary:               #ffffff;
+  --ml-secondary:                #3a3a3a;
+  --ml-on-secondary:             #f4f4f4;
+
+  /* Grid line colors — darker on light surface */
+  --ml-grid-major-rgb:           180, 183, 184;  /* outline-variant light */
+  --ml-grid-minor-rgb:           180, 183, 184;
+  --ml-grid-major-opacity:       0.7;
+  --ml-grid-minor-opacity:       0.3;
+
+  /* Vignette color */
+  --ml-vignette-rgb:             244, 244, 244;
+}
+
+/* ============================================================
+   BASE RESET & GLOBAL STYLES
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Hanken Grotesk as the default sans — explicit declaration */
+  font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  background-color: var(--ml-background);
+  color: var(--ml-on-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Native smooth scrolling */
+  scroll-behavior: smooth;
+  /* Offset anchor targets so the fixed nav doesn't cover them */
+  scroll-padding-top: 56px;
+  /* Color transition — runs during the blur overlay window */
+  transition:
+    background-color 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    color            600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.6;
+  font-family: inherit;
+  /* Propagate transition to body background */
+  transition:
+    background-color 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    color            600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* All headings — Hanken Grotesk, heavy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Hanken Grotesk', system-ui, sans-serif;
+}
+
+/* All monospace elements — JetBrains Mono */
+code, pre, kbd, samp,
+.mono, .label,
+button, [class*="mono"] {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* No rounded corners — ever */
+* {
+  border-radius: 0 !important;
+}
+
+/*
+  Color transition — applied globally so every element cross-fades
+  during the blur overlay window (600ms). The backdrop-filter overlay
+  hides the early snap; by the time it clears, colors are mid-interpolation.
+*/
+*, *::before, *::after {
+  transition-property: background-color, color, border-color, fill, stroke;
+  transition-duration: 600ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   TYPOGRAPHY SCALE
+   ============================================================ */
+
+.text-headline-lg {
+  font-family: var(--font-sans);
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.text-headline-lg-mobile {
+  font-family: var(--font-sans);
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.text-headline-md {
+  font-family: var(--font-sans);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.text-body-md {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.text-code-md {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.text-label-sm {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+}

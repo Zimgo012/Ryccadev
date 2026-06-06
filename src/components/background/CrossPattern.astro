@@ -1,0 +1,129 @@
+---
+/**
+ * CrossPattern
+ * Scattered × marks on an SVG canvas.
+ *
+ * Props:
+ *   count?  — number of crosses (default: 48)
+ *   seed?   — layout seed (default: 42)
+ *   color?  — override fill color (default: CSS var --cross-fill)
+ *   fade?   — top/bottom fade strength 0–1 (default: 0.7). 0 = no fade.
+ *   id?     — forwarded to root element
+ *   class?  — extra classes on the root div
+ */
+interface Props {
+  count?: number;
+  seed?:  number;
+  color?: string;
+  fade?:  number;
+  id?:    string;
+  class?: string;
+}
+
+const { count = 48, seed = 42, color, fade = 0.7, id, class: className = '' } = Astro.props;
+
+const W = 4000;
+const H = 4000;
+
+function makeRand(s: number) {
+  let state = s >>> 0;
+  return () => {
+    state = (Math.imul(1664525, state) + 1013904223) >>> 0;
+    return state / 0xffffffff;
+  };
+}
+
+interface Cross {
+  id: number; cx: number; cy: number;
+  size: number; thick: number;
+  opacity: number; rotate: number; blur: number;
+}
+
+const rand = makeRand(seed);
+const crosses: Cross[] = Array.from({ length: count }, (_, i) => {
+  const size       = [12, 22, 38, 60, 90][Math.floor(rand() * 5)];
+  const thick      = size * (0.10 + rand() * 0.08);
+  const blurChance = rand();
+  return {
+    id: i, cx: rand() * W, cy: rand() * H,
+    size, thick,
+    opacity: 0.10 + rand() * 0.50,
+    rotate:  45 + (rand() - 0.5) * 16,
+    blur:    blurChance < 0.30 ? 1 + rand() * 6 : 0,
+  };
+});
+
+const blurValues = [...new Set(crosses.map(c => Math.round(c.blur)))].filter(b => b > 0);
+
+const uid    = `cp-${seed}-${count}`;
+const maskId = `${uid}-fade`;
+// How far the fade extends from each edge (0–50% of height)
+const fadeStop = Math.round(fade * 35); // e.g. 0.7 → 24%
+---
+
+<div class:list={['cross-pattern-root', className]} style="position:relative;" id={id}>
+  <svg
+    aria-hidden="true"
+    viewBox={`0 0 ${W} ${H}`}
+    preserveAspectRatio="xMidYMid slice"
+    style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;"
+  >
+    <defs>
+      <!-- Per-cross soft blur filters (unchanged) -->
+      {blurValues.map(b => (
+        <filter id={`${uid}-f${b}`} x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation={b} />
+        </filter>
+      ))}
+
+      {fade > 0 && (
+        /*
+          Linear gradient mask: transparent at top, opaque in middle, transparent at bottom.
+          Applied directly to the pattern group — fades it out rather than adding on top.
+        */
+        <linearGradient id={`${maskId}-grad`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"              stop-color="white" stop-opacity="0" />
+          <stop offset={`${fadeStop}%`}  stop-color="white" stop-opacity="1" />
+          <stop offset={`${100 - fadeStop}%`} stop-color="white" stop-opacity="1" />
+          <stop offset="100%"            stop-color="white" stop-opacity="0" />
+        </linearGradient>
+      )}
+      {fade > 0 && (
+        <mask id={maskId}>
+          <rect width={W} height={H} fill={`url(#${maskId}-grad)`} />
+        </mask>
+      )}
+    </defs>
+
+    <!-- All crosses in one group — mask fades the whole group top/bottom -->
+    <g mask={fade > 0 ? `url(#${maskId})` : undefined}>
+      {crosses.map(c => {
+        const fill = color ?? 'var(--cross-fill)';
+        const cf   = c.blur > 0 ? `url(#${uid}-f${Math.round(c.blur)})` : undefined;
+        return (
+          <g transform={`rotate(${c.rotate}, ${c.cx}, ${c.cy})`} opacity={c.opacity} filter={cf}>
+            <rect x={c.cx - c.size}      y={c.cy - c.thick / 2} width={c.size * 2} height={c.thick}    fill={fill} />
+            <rect x={c.cx - c.thick / 2} y={c.cy - c.size}      width={c.thick}    height={c.size * 2} fill={fill} />
+          </g>
+        );
+      })}
+    </g>
+  </svg>
+
+  <div style="position:relative;z-index:1;">
+    <slot />
+  </div>
+</div>
+
+<style>
+  :root { --cross-fill: #8e9192; --cp-bg: #121414; }
+
+  .cross-pattern-root {
+    background-color: var(--cp-bg);
+  }
+
+  :global(.light) .cross-pattern-root {
+    --cross-fill: #6f7474;
+    --cp-bg:      #f4f4f4;
+  }
+</style>

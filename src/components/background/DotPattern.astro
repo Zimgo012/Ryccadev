@@ -1,0 +1,107 @@
+---
+/**
+ * DotPattern
+ * Dot-grid background using an inline SVG <pattern>.
+ *
+ * Props:
+ *   dotSize?   — dot radius in px (default: 1.5)
+ *   spacing?   — distance between dot centers in px (default: 24)
+ *   color?     — override dot color (default: CSS var --dot-fill)
+ *   fade?      — top/bottom color vignette strength 0–1 (default: 0.8). 0 = flat.
+ *   bgColor?   — base background color (default: theme-aware)
+ *   fadeColor? — edge color for the vignette (default: theme-aware near-black)
+ *   id?        — forwarded to root element
+ *   class?     — extra classes on the root div
+ */
+interface Props {
+  dotSize?:   number;
+  spacing?:   number;
+  color?:     string;
+  fade?:      number;
+  bgColor?:   string;
+  fadeColor?: string;
+  id?:        string;
+  class?:     string;
+}
+
+const {
+  dotSize   = 1.5,
+  spacing   = 24,
+  color,
+  fade      = 0.8,
+  bgColor,
+  fadeColor,
+  id,
+  class: className = '',
+} = Astro.props;
+
+const fill = color ?? 'var(--dot-fill)';
+
+const W = 4000;
+const H = 4000;
+
+const uid   = `dp-${spacing}-${dotSize}`;
+const patId = `${uid}-pat`;
+---
+
+<div
+  class:list={['dot-pattern-root', className]}
+  id={id}
+  style={[
+    'position:relative;',
+    bgColor   ? `--dp-bg:${bgColor};`     : '',
+    fadeColor ? `--dp-fade:${fadeColor};` : '',
+    `--dp-fade-pct:${Math.round(fade * 100)}%;`,
+  ].join('')}
+>
+  <!-- Color vignette layer: dark edges → lighter center -->
+  {fade > 0 && <div class="dp-vignette" aria-hidden="true"></div>}
+
+  <svg
+    aria-hidden="true"
+    viewBox={`0 0 ${W} ${H}`}
+    preserveAspectRatio="xMidYMid slice"
+    style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;"
+  >
+    <defs>
+      <pattern id={patId} x="0" y="0" width={spacing} height={spacing} patternUnits="userSpaceOnUse">
+        <circle cx={spacing / 2} cy={spacing / 2} r={dotSize} fill={fill} />
+      </pattern>
+    </defs>
+    <rect width={W} height={H} fill={`url(#${patId})`} />
+  </svg>
+
+  <div style="position:relative;z-index:2;">
+    <slot />
+  </div>
+</div>
+
+<style>
+  :root  { --dot-fill: #444748; --dp-bg: #121414; --dp-fade: #080a0f; }
+
+  .dot-pattern-root {
+    background-color: var(--dp-bg);
+  }
+
+  .dp-vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        to bottom,
+        var(--dp-fade)  0%,
+        var(--dp-bg)    var(--dp-fade-pct),
+        var(--dp-bg)    calc(100% - var(--dp-fade-pct)),
+        var(--dp-fade)  100%
+      );
+  }
+
+  /* Light theme overrides — scoped to :global(.light) so body.light triggers it */
+  :global(.light) .dot-pattern-root {
+    --dot-fill: #bfc4c4;
+    --dp-bg:    #f4f4f4;
+    --dp-fade:  #dde0e4;
+  }
+</style>

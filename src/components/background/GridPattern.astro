@@ -1,0 +1,108 @@
+---
+/**
+ * GridPattern
+ * Cartesian grid background using an SVG <pattern> tile.
+ *
+ * Props:
+ *   cellSize?  — grid cell size in px (default: 40)
+ *   lineWidth? — line thickness in px (default: 1)
+ *   color?     — override line color (default: CSS var --grid-line)
+ *   fade?      — top/bottom color vignette strength 0–1 (default: 0.8). 0 = flat.
+ *   bgColor?   — base background color (default: theme-aware)
+ *   fadeColor? — edge color for the vignette (default: theme-aware near-black)
+ *   id?        — forwarded to root element
+ *   class?     — extra classes on the root div
+ */
+interface Props {
+  cellSize?:  number;
+  lineWidth?: number;
+  color?:     string;
+  fade?:      number;
+  bgColor?:   string;
+  fadeColor?: string;
+  id?:        string;
+  class?:     string;
+}
+
+const {
+  cellSize  = 40,
+  lineWidth = 1,
+  color,
+  fade      = 0.8,
+  bgColor,
+  fadeColor,
+  id,
+  class: className = '',
+} = Astro.props;
+
+const stroke = color ?? 'var(--grid-line)';
+
+const W = 4000;
+const H = 4000;
+
+const uid   = `gp-${cellSize}`;
+const patId = `${uid}-pat`;
+---
+
+<div
+  class:list={['grid-pattern-root', className]}
+  id={id}
+  style={[
+    'position:relative;',
+    bgColor   ? `--gp-bg:${bgColor};`     : '',
+    fadeColor ? `--gp-fade:${fadeColor};` : '',
+    `--gp-fade-pct:${Math.round(fade * 100)}%;`,
+  ].join('')}
+>
+  <!-- Color vignette layer: dark edges → lighter center -->
+  {fade > 0 && <div class="gp-vignette" aria-hidden="true"></div>}
+
+  <svg
+    aria-hidden="true"
+    viewBox={`0 0 ${W} ${H}`}
+    preserveAspectRatio="xMidYMid slice"
+    style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;"
+  >
+    <defs>
+      <pattern id={patId} x="0" y="0" width={cellSize} height={cellSize} patternUnits="userSpaceOnUse">
+        <line x1={cellSize} y1="0"        x2={cellSize} y2={cellSize} stroke={stroke} stroke-width={lineWidth} />
+        <line x1="0"        y1={cellSize} x2={cellSize} y2={cellSize} stroke={stroke} stroke-width={lineWidth} />
+      </pattern>
+    </defs>
+    <rect width={W} height={H} fill={`url(#${patId})`} />
+  </svg>
+
+  <div style="position:relative;z-index:2;">
+    <slot />
+  </div>
+</div>
+
+<style>
+  :root  { --grid-line: #444748; --gp-bg: #121414; --gp-fade: #080a0f; }
+
+  .grid-pattern-root {
+    background-color: var(--gp-bg);
+  }
+
+  .gp-vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        to bottom,
+        var(--gp-fade)  0%,
+        var(--gp-bg)    var(--gp-fade-pct),
+        var(--gp-bg)    calc(100% - var(--gp-fade-pct)),
+        var(--gp-fade)  100%
+      );
+  }
+
+  /* Light theme overrides — scoped to :global(.light) so body.light triggers it */
+  :global(.light) .grid-pattern-root {
+    --grid-line: #bfc4c4;
+    --gp-bg:     #f4f4f4;
+    --gp-fade:   #dde0e4;
+  }
+</style>
