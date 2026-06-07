@@ -1,15 +1,297 @@
 ---
-import "../../src/styles/global.css"
-import "../../src/styles/portfolio.css"
+import "../styles/navbar.css"
 ---
 
 <nav class="nav" id="nav">
-    <a href="#hero" class="nav-logo mono">RB.DEV</a>
+    <a href="#hero" class="nav-logo mono">RYCCA.DEV</a>
     <div class="nav-links">
-        <a href="#about"    class="nav-link mono">_about</a>
-        <a href="#projects" class="nav-link mono">_projects</a>
-        <a href="#skills"   class="nav-link mono">_skills</a>
-        <a href="#contact"  class="nav-link mono">_contact</a>
+        <button class="nav-link mono">Home</button>
+        <button class="nav-link mono">Projects</button>
+        <button class="nav-link mono">Blogs</button>
     </div>
-    <button class="theme-btn mono" id="themeToggle">[DARK]</button>
+
+    <div class="nav-right-side">
+        <button class="theme-btn mono" id="themeToggle">
+
+        </button>
+        <!--Version Badge-->
+        <p class="version-num">v1.0</p>
+    </div>
+
 </nav>
+
+
+<script>
+
+    const BLUR_PEAK     = 16;   // px
+    const HALF_DURATION = 280;  // ms per phase
+
+    function runGlitchOverlay() {
+        const layer = document.createElement("div");
+
+        layer.style.cssText = `
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+
+        z-index: 2147483647;
+        pointer-events: none;
+
+        overflow: hidden;
+    `;
+
+        document.body.appendChild(layer);
+
+        /* =========================
+           CRT SCANLINES
+        ========================= */
+        const scanlines = document.createElement("div");
+        scanlines.style.cssText = `
+        position: absolute;
+        inset: 0;
+
+        background: repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.10) 0px,
+            rgba(255,255,255,0.10) 1px,
+            transparent 2px,
+            transparent 4px
+        );
+
+        mix-blend-mode: overlay;
+        opacity: 0.7;
+
+        animation: scanMove 90ms linear infinite;
+    `;
+
+        /* =========================
+           RGB CHANNEL SPLIT FIELD
+        ========================= */
+        const rgb = document.createElement("div");
+        rgb.style.cssText = `
+        position: absolute;
+        inset: 0;
+
+        background: repeating-linear-gradient(
+            90deg,
+            rgba(255,0,0,0.16) 0px,
+            transparent 2px,
+            rgba(0,255,0,0.16) 4px,
+            transparent 6px,
+            rgba(0,0,255,0.16) 8px
+        );
+
+        mix-blend-mode: screen;
+        opacity: 0.7;
+
+        animation: rgbDrift 70ms linear infinite;
+    `;
+
+        /* =========================
+           VHS TRACKING NOISE
+        ========================= */
+        const noise = document.createElement("div");
+        noise.style.cssText = `
+        position: absolute;
+        inset: 0;
+
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+
+        opacity: 0.4;
+        mix-blend-mode: overlay;
+
+        animation: noiseFlicker 60ms infinite;
+    `;
+
+        /* =========================
+           HORIZONTAL SIGNAL TEAR BANDS
+        ========================= */
+        const bars = document.createElement("div");
+        bars.style.cssText = `
+        position: absolute;
+        inset: 0;
+
+        background: repeating-linear-gradient(
+            0deg,
+            rgba(255,0,255,0.12) 0px,
+            rgba(0,255,255,0.12) 2px,
+            transparent 5px,
+            transparent 12px
+        );
+
+        mix-blend-mode: difference;
+        opacity: 0.85;
+
+        animation: barJitter 110ms infinite;
+    `;
+
+        /* =========================
+           VERTICAL SYNC TEAR LAYER
+        ========================= */
+        const tear = document.createElement("div");
+        tear.style.cssText = `
+        position: absolute;
+        inset: 0;
+
+        background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(255,255,255,0.08) 45%,
+            rgba(0,0,0,0.2) 50%,
+            transparent 55%
+        );
+
+        mix-blend-mode: overlay;
+        animation: tearShift 140ms infinite;
+    `;
+
+        /* =========================
+           FULL SCREEN WHITE FLASH LAYER
+        ========================= */
+        const flash = document.createElement("div");
+        flash.style.cssText = `
+        position: absolute;
+        inset: 0;
+        background: white;
+        opacity: 0;
+
+        animation: flashBurst 320ms ease-out 1;
+    `;
+
+        layer.appendChild(scanlines);
+        layer.appendChild(rgb);
+        layer.appendChild(noise);
+        layer.appendChild(bars);
+        layer.appendChild(tear);
+        layer.appendChild(flash);
+
+        /* =========================
+           KEYFRAMES
+        ========================= */
+        if (!document.getElementById("crt-ultra-style")) {
+            const style = document.createElement("style");
+            style.id = "crt-ultra-style";
+            style.textContent = `
+            @keyframes scanMove {
+                0% { transform: translateY(0px); }
+                100% { transform: translateY(5px); }
+            }
+
+            @keyframes rgbDrift {
+                0% { transform: translateX(0px); }
+                25% { transform: translateX(2px); }
+                50% { transform: translateX(-3px); }
+                75% { transform: translateX(1px); }
+                100% { transform: translateX(0px); }
+            }
+
+            @keyframes noiseFlicker {
+                0% { transform: translate(0,0); opacity: 0.25; }
+                50% { transform: translate(-1px,1px); opacity: 0.6; }
+                100% { transform: translate(1px,-1px); opacity: 0.3; }
+            }
+
+            @keyframes barJitter {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(10px); }
+                100% { transform: translateY(0px); }
+            }
+
+            /* vertical sync tear */
+            @keyframes tearShift {
+                0% { transform: translateY(-2px) skewX(0deg); }
+                50% { transform: translateY(2px) skewX(1deg); }
+                100% { transform: translateY(-2px) skewX(0deg); }
+            }
+
+            /* system flash reset */
+            @keyframes flashBurst {
+                0% { opacity: 0; }
+                10% { opacity: 0.9; }
+                100% { opacity: 0; }
+            }
+
+            /* CRT collapse / signal compression */
+            @keyframes screenCollapse {
+                0% { transform: scaleY(1) scaleX(1); }
+                50% { transform: scaleY(0.92) scaleX(1.02); }
+                100% { transform: scaleY(1) scaleX(1); }
+            }
+        `;
+            document.head.appendChild(style);
+        }
+
+        /* =========================
+           Y2K FAILURE SEQUENCE
+        ========================= */
+
+        // instant distortion
+        requestAnimationFrame(() => {
+            layer.style.filter = "contrast(220%) brightness(1.2)";
+        });
+
+        // CRT collapse (signal loss)
+        setTimeout(() => {
+            layer.style.animation = "screenCollapse 180ms ease-in-out 1";
+            layer.style.filter = "contrast(300%) brightness(0.7) hue-rotate(90deg)";
+        }, 90);
+
+        // heavy distortion peak
+        setTimeout(() => {
+            layer.style.transform = "skewX(2deg) scaleY(1.03)";
+        }, 160);
+
+        // signal recovery fade
+        setTimeout(() => {
+            layer.style.opacity = "0";
+            layer.style.transition = "opacity 220ms ease";
+
+            setTimeout(() => layer.remove(), 250);
+        }, 320);
+    }
+
+    // ── Theme state ────────────────────────────────────────────────
+    const toggle = document.getElementById('themeToggle') as HTMLButtonElement;
+    const body   = document.getElementById('body') as HTMLElement;
+    const nav    = document.getElementById('nav') as HTMLElement;
+
+    // Restore from localStorage or system preference
+    const stored = localStorage.getItem('ml-theme');
+    let isLight = stored === 'light'
+        ? true
+        : stored === 'dark'
+            ? false
+            : window.matchMedia('(prefers-color-scheme: light)').matches;
+
+    // Apply initial theme without animation
+    function applyTheme(light: boolean, animate: boolean) {
+        body.classList.toggle('light', light);
+        document.documentElement.setAttribute('data-theme', light ? 'light' : 'dark');
+        toggle.textContent = light ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+        localStorage.setItem('ml-theme', light ? 'light' : 'dark');
+        if (animate) runGlitchOverlay();
+    }
+
+    applyTheme(isLight, false);
+
+    let isAnimating = false;
+
+    toggle.addEventListener('click', () => {
+        if (isAnimating) return;
+        isAnimating = true;
+        isLight = !isLight;
+
+        // 1. Commit theme immediately — CSS color transitions start now
+        applyTheme(isLight, true);
+
+        // Unlock after full transition
+        setTimeout(() => { isAnimating = false; }, HALF_DURATION * 2 + 64);
+    });
+
+    // Shrink nav on scroll
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('nav--scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+</script>

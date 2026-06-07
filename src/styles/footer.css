@@ -1,0 +1,14 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 24px 40px;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    background-color: var(--ml-surface);
+    border-top: 1px solid var(--ml-outline-variant);
+}
+
+.footer-right {
+    color: var(--ml-surface-container-highest);
+}

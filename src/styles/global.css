@@ -1,198 +1,211 @@
 @import "tailwindcss";
 
 /* ============================================================
-   MACHINE LOGIC — Design System Tokens
-   Neo-Brutalism / Terminal UI
+   DESIGN TOKENS (Tailwind bridge)
    ============================================================ */
-
 @theme {
-  /* --- Typography --- */
-  --font-sans: 'Hanken Grotesk', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-sans: 'Hanken Grotesk, system-ui, sans-serif';
+  --font-mono: 'JetBrains Mono', monospace;
 
-  /* --- Spacing (8px base unit) --- */
-  --spacing-unit: 8px;
+  /* ============================================================
+     SEMANTIC COLOR MAPPING (Tailwind)
+     ============================================================ */
 
-  /* --- Container --- */
-  --container-max: 1200px;
+  --color-background: var(--ml-bg);
+  --color-surface: var(--ml-surface);
+
+  --color-surface-dim: var(--ml-surface-dim);
+  --color-surface-bright: var(--ml-surface-bright);
+
+  --color-surface-container: var(--ml-surface-container);
+  --color-surface-container-high: var(--ml-surface-container-high);
+  --color-surface-container-highest: var(--ml-surface-container-highest);
+
+  --color-on-surface: var(--ml-on-surface);
+  --color-on-surface-variant: var(--ml-on-surface-variant);
+
+  --color-outline: var(--ml-outline);
+  --color-outline-variant: var(--ml-outline-variant);
+
+  --color-primary: var(--ml-primary);
+  --color-primary-container: var(--ml-primary-container);
+  --color-on-primary: var(--ml-on-primary);
+
+  --color-secondary: var(--ml-secondary);
+  --color-tertiary: var(--ml-tertiary);
+
+  --color-error: var(--ml-error);
 }
 
 /* ============================================================
-   THEME TOKENS — Dark (default)
+   DARK THEME — HYPERLINK HORIZON (PRIMARY DARK)
    ============================================================ */
 
-:root,
 [data-theme="dark"] {
-  --ml-background:               #121414;
-  --ml-surface:                  #121414;
-  --ml-surface-dim:              #121414;
-  --ml-surface-bright:           #383939;
-  --ml-surface-container-lowest: #0d0e0f;
-  --ml-surface-container-low:    #1b1c1c;
-  --ml-surface-container:        #1f2020;
-  --ml-surface-container-high:   #292a2a;
-  --ml-surface-container-highest:#343535;
-  --ml-on-surface:               #e3e2e2;
-  --ml-on-surface-variant:       #c4c7c8;
-  --ml-outline:                  #8e9192;
-  --ml-outline-variant:          #444748;
-  --ml-primary:                  #ffffff;
-  --ml-on-primary:               #2f3131;
-  --ml-secondary:                #c6c6c6;
-  --ml-on-secondary:             #303030;
+  /* background + surfaces */
+  --ml-bg: #131313;
+  --ml-surface: #131313;
+  --ml-surface-dim: #0e0e0e;
+  --ml-surface-bright: #d3d3d3;
 
-  /* Grid line colors (RGB only, used with rgba()) */
-  --ml-grid-major-rgb:           68, 71, 72;   /* outline-variant */
-  --ml-grid-minor-rgb:           68, 71, 72;
-  --ml-grid-major-opacity:       0.55;
-  --ml-grid-minor-opacity:       0.15;
+  --ml-surface-container: #20201f;
+  --ml-surface-container-high: #2a2a2a;
+  --ml-surface-container-highest: #353535;
 
-  /* Vignette color */
-  --ml-vignette-rgb:             13, 14, 15;
+  /* text */
+  --ml-on-surface: #e5e2e1;
+  --ml-on-surface-variant: #b9ccb2;
+
+  /* borders */
+  --ml-outline: #070707;
+  --ml-outline-variant: #3b4b37;
+
+  /* neon primary system */
+  --ml-primary: #00ff41;
+  --ml-primary-container: #00ff41;
+  --ml-on-primary: #003907;
+
+  /* accents */
+  --ml-secondary: #ffabf3;
+  --ml-tertiary: #00f0ff;
+
+  --ml-error: #ffb4ab;
 }
 
 /* ============================================================
-   THEME TOKENS — Light
-   Inverted: white canvas, dark ink, same structural logic
+   LIGHT THEME — SILICON OBSIDIAN (REFINED)
    ============================================================ */
 
 [data-theme="light"] {
-  --ml-background:               #f4f4f4;
-  --ml-surface:                  #f4f4f4;
-  --ml-surface-dim:              #e8e8e8;
-  --ml-surface-bright:           #ffffff;
-  --ml-surface-container-lowest: #ffffff;
-  --ml-surface-container-low:    #efefef;
-  --ml-surface-container:        #e8e8e8;
-  --ml-surface-container-high:   #dedede;
-  --ml-surface-container-highest:#d4d4d4;
-  --ml-on-surface:               #1a1a1a;
-  --ml-on-surface-variant:       #3a3a3a;
-  --ml-outline:                  #6e7070;
-  --ml-outline-variant:          #b8bbbc;
-  --ml-primary:                  #000000;
-  --ml-on-primary:               #ffffff;
-  --ml-secondary:                #3a3a3a;
-  --ml-on-secondary:             #f4f4f4;
+  /* background + surfaces */
+  --ml-bg: #fdf9ee;
+  --ml-surface: #fdf9ee;
+  --ml-surface-dim: #dedacf;
+  --ml-surface-bright: #ffffff;
 
-  /* Grid line colors — darker on light surface */
-  --ml-grid-major-rgb:           180, 183, 184;  /* outline-variant light */
-  --ml-grid-minor-rgb:           180, 183, 184;
-  --ml-grid-major-opacity:       0.7;
-  --ml-grid-minor-opacity:       0.3;
+  --ml-surface-container: #f2eee2;
+  --ml-surface-container-high: #ece8dd;
+  --ml-surface-container-highest: #e6e2d7;
 
-  /* Vignette color */
-  --ml-vignette-rgb:             244, 244, 244;
+  /* text */
+  --ml-on-surface: #1c1c15;
+  --ml-on-surface-variant: #404847;
+
+  /* borders */
+  --ml-outline: #707977;
+  --ml-outline-variant: #c0c8c6;
+
+  /* primary system */
+  --ml-primary: #002420;
+  --ml-primary-container: #003b36;
+  --ml-on-primary: #ffffff;
+
+  /* accents */
+  --ml-secondary: #3b6934;
+  --ml-tertiary: #00203e;
+
+  --ml-error: #ba1a1a;
 }
 
 /* ============================================================
-   BASE RESET & GLOBAL STYLES
+   BASE RESET
    ============================================================ */
 
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+  transition: background-color 250ms ease,
+  color 250ms ease,
+  border-color 250ms ease,
+  transform 250ms ease;
 }
 
 html {
-  /* Hanken Grotesk as the default sans — explicit declaration */
-  font-family: 'Hanken Grotesk', system-ui, sans-serif;
-  background-color: var(--ml-background);
+  font-family: var(--font-sans);
+  background: var(--ml-bg);
   color: var(--ml-on-surface);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* Native smooth scrolling */
-  scroll-behavior: smooth;
-  /* Offset anchor targets so the fixed nav doesn't cover them */
-  scroll-padding-top: 56px;
-  /* Color transition — runs during the blur overlay window */
-  transition:
-    background-color 600ms cubic-bezier(0.4, 0, 0.2, 1),
-    color            600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
   min-height: 100vh;
   line-height: 1.6;
-  font-family: inherit;
-  /* Propagate transition to body background */
-  transition:
-    background-color 600ms cubic-bezier(0.4, 0, 0.2, 1),
-    color            600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* All headings — Hanken Grotesk, heavy */
+/* ============================================================
+   TYPOGRAPHY RULES
+   ============================================================ */
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
-/* All monospace elements — JetBrains Mono */
 code, pre, kbd, samp,
-.mono, .label,
-button, [class*="mono"] {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+.mono, .label {
+  font-family: var(--font-mono);
 }
 
-/* No rounded corners — ever */
+/* ============================================================
+   GLOBAL SHAPE RULE (STRICT)
+   ============================================================ */
+
 * {
   border-radius: 0 !important;
 }
 
-/*
-  Color transition — applied globally so every element cross-fades
-  during the blur overlay window (600ms). The backdrop-filter overlay
-  hides the early snap; by the time it clears, colors are mid-interpolation.
-*/
-*, *::before, *::after {
-  transition-property: background-color, color, border-color, fill, stroke;
-  transition-duration: 600ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+/* ============================================================
+   BUTTON SYSTEM (core component)
+   ============================================================ */
+
+button {
+  font-family: var(--font-mono);
+  background: transparent;
+  color: var(--ml-on-primary);
+
+  border-style: solid;
+  border-width: 2px;
+
+  /* OUTSET LOOK (raised) */
+  border-top-color: var(--ml-surface-bright);
+  border-left-color: var(--ml-surface-bright);
+  border-bottom-color: var(--ml-outline);
+  border-right-color: var(--ml-outline);
+
+  padding: 8px 12px;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: var(--ml-secondary);
+  color: var(--ml-on-primary);
+}
+
+button:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+
+}
+
+button:active {
+  transform: translate(1px, 1px);
+
+  /* INSET LOOK (pressed) */
+  border-top-color: var(--ml-outline);
+  border-left-color: var(--ml-outline);
+  border-bottom-color: var(--ml-surface-bright);
+  border-right-color: var(--ml-surface-bright);
 }
 
 /* ============================================================
-   TYPOGRAPHY SCALE
+   CONTAINER SYSTEM
    ============================================================ */
 
-.text-headline-lg {
-  font-family: var(--font-sans);
-  font-size: 48px;
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-
-.text-headline-lg-mobile {
-  font-family: var(--font-sans);
-  font-size: 32px;
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.text-headline-md {
-  font-family: var(--font-sans);
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.text-body-md {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.6;
-}
-
-.text-code-md {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-.text-label-sm {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1;
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
