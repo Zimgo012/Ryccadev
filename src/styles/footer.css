@@ -1,12 +1,19 @@
 .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    padding: 24px 40px;
+    padding: 12px 20px;
     font-family: 'Hanken Grotesk', system-ui, sans-serif;
     background-color: var(--ml-surface);
     border-top: 1px solid var(--ml-outline-variant);
+
+    z-index: 999;
 }
 
 .footer-right {
