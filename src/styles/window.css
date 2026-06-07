@@ -1,0 +1,117 @@
+.window{
+    height: 100%;
+
+    /*border-color: #ffe037;*/
+    /*border-width: 10px;*/
+    background: var(--ml-bg);
+    border: 2px solid;
+    border-top-color: #fff;
+    border-left-color: #fff;
+    border-bottom-color: #888;
+    border-right-color: #888;
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+}
+
+/*=========== TITLE BAR ============*/
+.window-title-gradient {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+    justify-content: space-between;
+    color: white;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.win98-button {
+    background: #e6e2d7;
+    color: #1c1c15;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    border: 2px solid;
+    border-top-color: #fff;
+    border-left-color: #fff;
+    border-bottom-color: #707977;
+    border-right-color: #707977;
+    border-width: 0px;
+    outline: 1px solid #1c1c15;
+    box-shadow: inset 1px 1px #fdf9ee;
+
+    width: 10px;
+    height: 23px;
+}
+.win98-button:active {
+    border-top-color: #707977;
+    border-left-color: #707977;
+    border-bottom-color: #fff;
+    border-right-color: #fff;
+    box-shadow: inset 1px 1px #c0c8c6;
+    padding: 5px 11px 3px 13px;
+}
+
+/*========== MAIN CONTENT =============*/
+.window-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 25% 75%;
+    align-content: center;
+    position: relative;
+    padding: 20px;
+}
+
+.window-content-left {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    position: relative;
+
+}
+
+.profile{
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+    /*border-width: 10px;*/
+    /*border-color: #00ff41;*/
+
+}
+
+.info{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /*border-width: 10px;*/
+    /*border-color: #00ff41;*/
+
+
+}
+
+.window-content-right {
+    margin-left: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    /*border-width: 10px;*/
+    /*border-color: #00ff41;*/
+
+    p{
+        margin: 10px;
+
+
+    }
+
+    span{
+        color: var(--ml-secondary);
+    }
+
+}

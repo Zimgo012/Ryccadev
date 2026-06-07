@@ -65,11 +65,20 @@
   --ml-primary-container: #00ff41;
   --ml-on-primary: #003907;
 
+  /*  turn on button*/
+    --ml-turnon: #00871a;
+
   /* accents */
   --ml-secondary: #ffabf3;
   --ml-tertiary: #00f0ff;
 
   --ml-error: #ffb4ab;
+
+  --ml-accent-neon: #00ff41;
+  --ml-accent-cyan: #00f0ff;
+  --ml-accent-magenta: #ff00ff;
+  --ml-chrome: #2a2a2a;
+  --ml-glow: rgba(0, 255, 65, 0.15);
 }
 
 /* ============================================================
@@ -100,11 +109,20 @@
   --ml-primary-container: #003b36;
   --ml-on-primary: #ffffff;
 
+    /*  turn on button*/
+    --ml-turnon: #8a0000;
+
   /* accents */
   --ml-secondary: #3b6934;
   --ml-tertiary: #00203e;
 
   --ml-error: #ba1a1a;
+
+  --ml-accent-neon: #00ff41;   /* matrix green pop */
+  --ml-accent-cyan: #00f0ff;   /* cyber highlight */
+  --ml-accent-magenta: #ff00ff;/* y2k punch */
+  --ml-chrome: #c0c0c0;        /* retro OS metallic */
+  --ml-glow: rgba(0, 255, 65, 0.25);
 }
 
 /* ============================================================
@@ -129,8 +147,176 @@ html {
 }
 
 body {
-  min-height: 100vh;
-  line-height: 1.6;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   1970s PSYCHEDELIC FLUID WAVE PATTERN (FLAT VECTOR)
+   ============================================================ */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+
+  /* ============================================================
+     SUPER SWIRLY FLUID VECTOR FIELD (FLAT ONLY)
+     ============================================================ */
+
+  background-image:
+
+    /* flowing top-left wave */
+          radial-gradient(ellipse at 8% 12%,
+          var(--ml-primary-container) 0 10%,
+          transparent 18%),
+          radial-gradient(ellipse at 18% 20%,
+          var(--ml-primary-container) 0 8%,
+          transparent 16%),
+          radial-gradient(ellipse at 28% 28%,
+          var(--ml-primary-container) 0 12%,
+          transparent 20%),
+
+            /* magenta swirl arc */
+          radial-gradient(ellipse at 35% 60%,
+          var(--ml-secondary) 0 14%,
+          transparent 22%),
+          radial-gradient(ellipse at 42% 68%,
+          var(--ml-secondary) 0 10%,
+          transparent 18%),
+          radial-gradient(ellipse at 50% 76%,
+          var(--ml-secondary) 0 16%,
+          transparent 24%),
+
+            /* cyan/tertiary liquid bend */
+          radial-gradient(ellipse at 55% 30%,
+          var(--ml-tertiary) 0 12%,
+          transparent 20%),
+          radial-gradient(ellipse at 62% 38%,
+          var(--ml-tertiary) 0 10%,
+          transparent 18%),
+          radial-gradient(ellipse at 70% 46%,
+          var(--ml-tertiary) 0 14%,
+          transparent 22%),
+
+            /* primary wave sweep */
+          radial-gradient(ellipse at 72% 62%,
+          var(--ml-primary) 0 16%,
+          transparent 24%),
+          radial-gradient(ellipse at 80% 70%,
+          var(--ml-primary) 0 12%,
+          transparent 20%),
+          radial-gradient(ellipse at 88% 78%,
+          var(--ml-primary) 0 14%,
+          transparent 22%),
+
+            /* trailing edge swirl */
+          radial-gradient(ellipse at 92% 14%,
+          var(--ml-outline-variant) 0 10%,
+          transparent 18%),
+          radial-gradient(ellipse at 96% 22%,
+          var(--ml-outline-variant) 0 8%,
+          transparent 14%);
+
+  filter: contrast(1.1) saturate(6);
+  background-size: 120% 120%;
+  background-repeat: repeat;
+
+  animation: liquidBreath 12s ease-in-out infinite alternate;
+
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  /* ============================================================
+     CRT SCANLINES + HOLOGRAPHIC WOBBLE LAYER
+     ============================================================ */
+
+  background:
+    /* scanlines */
+          repeating-linear-gradient(
+                  to bottom,
+                  rgba(0, 0, 0, 0.06) 0px,
+                  rgba(0, 0, 0, 0.06) 1px,
+                  transparent 2px,
+                  transparent 4px
+          ),
+
+            /* subtle vertical interference lines */
+          repeating-linear-gradient(
+                  90deg,
+                  rgba(255, 255, 255, 0.03) 0px,
+                  rgba(255, 255, 255, 0.03) 1px,
+                  transparent 3px,
+                  transparent 6px
+          );
+
+  mix-blend-mode: overlay;
+  opacity: 0.35;
+
+  animation: crtWobble 6s infinite linear, crtFlicker 140ms infinite;
+}
+
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+
+/* slow horizontal monitor wobble */
+@keyframes crtWobble {
+  0% {
+    transform: translateX(0px) skewX(0deg);
+  }
+  25% {
+    transform: translateX(1px) skewX(0.2deg);
+  }
+  50% {
+    transform: translateX(-1px) skewX(-0.2deg);
+  }
+  75% {
+    transform: translateX(0.5px) skewX(0.1deg);
+  }
+  100% {
+    transform: translateX(0px) skewX(0deg);
+  }
+}
+
+/* flicker instability (CRT refresh feel) */
+@keyframes crtFlicker {
+  0% {
+    opacity: 0.28;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+
+@keyframes liquidBreath {
+  0% {
+    transform: scale(1) translate(0px, 0px);
+    background-position: 0% 0%;
+  }
+
+  50% {
+    transform: scale(1.03) translate(-6px, 4px);
+    background-position: 30% 20%;
+  }
+
+  100% {
+    transform: scale(1.01) translate(4px, -6px);
+    background-position: 60% 40%;
+  }
 }
 
 /* ============================================================
@@ -184,11 +370,6 @@ button:hover {
   color: var(--ml-on-primary);
 }
 
-button:active {
-  transform: translate(2px, 2px);
-  box-shadow: none;
-
-}
 
 button:active {
   transform: translate(1px, 1px);

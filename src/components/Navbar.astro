@@ -268,7 +268,7 @@ import "../styles/navbar.css"
     function applyTheme(light: boolean, animate: boolean) {
         body.classList.toggle('light', light);
         document.documentElement.setAttribute('data-theme', light ? 'light' : 'dark');
-        toggle.textContent = light ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+        toggle.textContent = light ? '○' : '◉';
         localStorage.setItem('ml-theme', light ? 'light' : 'dark');
         if (animate) runGlitchOverlay();
     }

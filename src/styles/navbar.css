@@ -44,7 +44,9 @@
     color: var(--ml-outline-variant);
 }
 
-.theme-btn:hover {
+.theme-btn{
+    background-color: var(--ml-turnon);
+    color: white;
 
 }
 
