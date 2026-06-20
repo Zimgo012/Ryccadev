@@ -5,10 +5,10 @@
     /*border-width: 10px;*/
     background: var(--ml-bg);
     border: 2px solid;
-    border-top-color: #fff;
-    border-left-color: #fff;
-    border-bottom-color: #888;
-    border-right-color: #888;
+    border-top-color: var(--ml-border-1);
+    border-left-color: var(--ml-border-2);
+    border-bottom-color: var(--ml-border-3);
+    border-right-color: var(--ml-border-4);
     font-family: 'Hanken Grotesk', system-ui, sans-serif;
 }
 
@@ -35,10 +35,10 @@
     font-size: 12px;
     font-weight: 700;
     border: 2px solid;
-    border-top-color: #fff;
-    border-left-color: #fff;
-    border-bottom-color: #707977;
-    border-right-color: #707977;
+    border-top-color: var(--ml-border-1);
+    border-left-color: var(--ml-border-2);
+    border-bottom-color: var(--ml-border-3);
+    border-right-color: var(--ml-border-4);
     border-width: 0px;
     outline: 1px solid #1c1c15;
     box-shadow: inset 1px 1px #fdf9ee;
@@ -47,71 +47,10 @@
     height: 23px;
 }
 .win98-button:active {
-    border-top-color: #707977;
-    border-left-color: #707977;
-    border-bottom-color: #fff;
-    border-right-color: #fff;
+    border-top-color: var(--ml-border-3);
+    border-left-color: var(--ml-border-4);
+    border-bottom-color: var(--ml-border-1);
+    border-right-color: var(--ml-border-2);
     box-shadow: inset 1px 1px #c0c8c6;
     padding: 5px 11px 3px 13px;
-}
-
-/*========== MAIN CONTENT =============*/
-.window-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-columns: 25% 75%;
-    align-content: center;
-    position: relative;
-    padding: 20px;
-}
-
-.window-content-left {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    position: relative;
-
-}
-
-.profile{
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-
-    /*border-width: 10px;*/
-    /*border-color: #00ff41;*/
-
-}
-
-.info{
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /*border-width: 10px;*/
-    /*border-color: #00ff41;*/
-
-
-}
-
-.window-content-right {
-    margin-left: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
-
-    /*border-width: 10px;*/
-    /*border-color: #00ff41;*/
-
-    p{
-        margin: 10px;
-
-
-    }
-
-    span{
-        color: var(--ml-secondary);
-    }
-
 }

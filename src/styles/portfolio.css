@@ -1,0 +1,61 @@
+
+
+.btn-primary {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  color: #0d0e0f;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+.btn-primary:hover { background-color: #c4c7c8; }
+body.light .btn-primary { background-color: #000000; color: #ffffff; }
+body.light .btn-primary:hover { background-color: #343535; }
+
+.btn-ghost {
+  display: inline-block;
+  padding: 12px 24px;
+  border: 1px solid #444748;
+  color: #8e9192;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+.btn-ghost:hover { border-color: #ffffff; color: #ffffff; }
+body.light .btn-ghost:hover { border-color: #000000; color: #000000; }
+
+.text-link {
+  font-size: 11px;
+  color: #8e9192;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid #444748;
+  padding-bottom: 2px;
+}
+.text-link:hover { color: #ffffff; border-color: #ffffff; }
+body.light .text-link:hover { color: #000000; border-color: #000000; }
+
+
+/* ============================================================
+   PORTFOLIO — Responsive
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .nav { padding: 0 16px; }
+  .nav-links { display: none; }
+  .section { padding: 80px 0; }
+  .hero-title { font-size: 56px; }
+  .section-title { font-size: 40px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card.featured { grid-column: span 1; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .skill-group { border-right: none; }
+  .skill-group:nth-last-child(-n+2) { border-bottom: 1px solid #444748; }
+  .skill-group:last-child { border-bottom: none; }
+  .footer { flex-direction: column; gap: 8px; text-align: center; padding: 16px; }
+  .footer-right { display: none; }
+}

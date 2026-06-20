@@ -1,15 +1,15 @@
 ---
 import '../styles/window.css'
-import ImagePlaceHolder from '../components/ImagePlaceholder.astro'
-import DoubleArrow from '../components/DoubleArrow.astro'
+
+
+const {profile} = Astro.props
 ---
 
 <div class="window">
     <!--TITLE BAR-->
     <div class="window-title-gradient ">
         <div class="">
-            <span >person</span>
-            <span >C:\WINDOWS\PROFILES\BIO.EXE</span>
+            <span >C:\PROFILE\{profile ? profile : "NAN"}.EXE</span>
         </div>
         <div class="titlebar">
             <button class="win98-button ">_</button>
@@ -19,39 +19,7 @@ import DoubleArrow from '../components/DoubleArrow.astro'
 
     </div>
 
-
-    <!--MAIN CONTENT-->
-    <div class="window-content">
-
-        <div class="window-content-left">
-            <div class="profile">
-                <ImagePlaceHolder height="200px" width="200px" />
-            </div>
-            <div class="info">JOHN RYCCA BELCINA</div>
-        </div>
-        <div class="window-content-right">
-            <div>
-                <h1>SHORT BIOGRAPHY</h1>
-                <DoubleArrow/>
-                <p>
-                    Ry is a <span>junior software engineer</span> with a strong interest in backend development,
-                    infrastructure, and real-time systems.
-
-                </p>
-            </div>
-            <br>
-            <div>
-                <h1>C</h1>
-                <DoubleArrow/>
-                <p>
-                    Ry is a <span>junior software engineer</span> with a strong interest in backend development,
-                    infrastructure, and real-time systems.
-
-                </p>
-            </div>
-
-        </div>
-    </div>
+    <slot/>
 
 
 </div>

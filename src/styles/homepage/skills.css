@@ -1,0 +1,34 @@
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border: 1px solid #444748;
+}
+body.light .skills-grid { border-color: #b8bbbc; }
+
+.skill-group {
+    padding: 32px;
+    border-right: 1px solid #444748;
+    border-bottom: 1px solid #444748;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+body.light .skill-group { border-color: #b8bbbc; }
+.skill-group:nth-child(2n) { border-right: none; }
+.skill-group:nth-last-child(-n+2) { border-bottom: none; }
+
+.skill-group-label { display: block; margin-bottom: 4px; }
+
+.skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-tag {
+    font-size: 11px;
+    color: #c4c7c8;
+    border: 1px solid #343535;
+    padding: 4px 10px;
+    letter-spacing: 0.04em;
+}
+body.light .skill-tag { color: #3a3a3a; border-color: #d4d4d4; }
+.skill-tag:hover { border-color: #ffffff; color: #ffffff; }
+body.light .skill-tag:hover { border-color: #000000; color: #000000; }

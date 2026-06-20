@@ -79,6 +79,12 @@
   --ml-accent-magenta: #ff00ff;
   --ml-chrome: #2a2a2a;
   --ml-glow: rgba(0, 255, 65, 0.15);
+
+/*    box border for windows*/
+    --ml-border-1: #fff;
+    --ml-border-2: #fff;
+    --ml-border-3: #888;
+    --ml-border-4: #888;
 }
 
 /* ============================================================
@@ -123,6 +129,12 @@
   --ml-accent-magenta: #ff00ff;/* y2k punch */
   --ml-chrome: #c0c0c0;        /* retro OS metallic */
   --ml-glow: rgba(0, 255, 65, 0.25);
+
+    /*    box border for windows*/
+    --ml-border-1: #fff;
+    --ml-border-2: #fff;
+    --ml-border-3: #888;
+    --ml-border-4: #888;
 }
 
 /* ============================================================

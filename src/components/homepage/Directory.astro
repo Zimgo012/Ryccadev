@@ -1,0 +1,69 @@
+---
+import "../../styles/homepage/directory.css";
+
+const tabs = [
+    { id: "experience", label: "EXPERIENCE" },
+    { id: "stack", label: "TECH STACK" },
+    { id: "tech", label: "TECH" }
+];
+---
+
+<div class="directory">
+    <div class="directory-header">
+        {tabs.map((tab, index) => (
+                <button
+                        class:list={["directory-button", index === 0 && "active"]}
+                        data-tab={tab.id}
+                >
+                    {tab.label}
+                </button>
+        ))}
+    </div>
+
+    <div class="directory-content">
+        <div class="directory-panel active" data-panel="experience">
+            <ul class="directory-list">
+                <li><span>2019:</span> Started programming</li>
+                <li><span>2021:</span> The Glitch Era</li>
+                <li><span>2023:</span> V3 Refactor</li>
+            </ul>
+        </div>
+
+        <div class="directory-panel" data-panel="stack">
+            <ul class="directory-list">
+                <li>Astro</li>
+                <li>Spring Boot</li>
+                <li>PostgreSQL</li>
+                <li>Docker</li>
+            </ul>
+        </div>
+
+        <div class="directory-panel" data-panel="tech">
+            <ul class="directory-list">
+                <li>WebSockets</li>
+                <li>Collaborative Editing</li>
+                <li>System Design</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    const buttons = document.querySelectorAll(".directory-button");
+    const panels = document.querySelectorAll(".directory-panel");
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const tab = button.dataset.tab;
+
+            buttons.forEach((btn) => btn.classList.remove("active"));
+            panels.forEach((panel) => panel.classList.remove("active"));
+
+            button.classList.add("active");
+
+            document
+                .querySelector(`.directory-panel[data-panel="${tab}"]`)
+                ?.classList.add("active");
+        });
+    });
+</script>

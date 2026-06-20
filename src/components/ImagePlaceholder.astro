@@ -55,22 +55,14 @@ const bw = bracketWeight;
   <div class="ip-corner ip-corner--bl" aria-hidden="true"></div>
   <div class="ip-corner ip-corner--br" aria-hidden="true"></div>
 
-  {/* Center crosshair + label */}
-  <div class="ip-center" aria-hidden="true">
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="ip-crosshair">
-      <line x1="0"  y1="16" x2="32" y2="16" stroke="var(--ml-primary)"  stroke-width="1" />
-      <line x1="16" y1="0"  x2="16" y2="32" stroke="var(--ml-primary)"  stroke-width="1" />
-      <circle cx="16" cy="16" r="4" stroke="var(--ml-primary)" stroke-width="1" />
-    </svg>
-    <span class="ip-label">{label}</span>
-  </div>
 </div>
 
 <style>
   .img-placeholder {
     position: relative;
-    background: var(--ml-surface-container-low, #1b1c1c);
+    //background: url("../../src/resources/Ry.png");
     overflow: hidden;
+    background-size: 230px 230px;
   }
 
   /* Thin 1px outer border */

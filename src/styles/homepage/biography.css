@@ -1,0 +1,61 @@
+
+/*========== MAIN CONTENT =============*/
+.biography-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 25% 75%;
+    align-content: center;
+    position: relative;
+    padding: 20px;
+}
+
+.biography-content-left {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    position: relative;
+
+}
+
+.profile{
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+    /*border-width: 10px;*/
+    /*border-color: #00ff41;*/
+
+}
+
+.info{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /*border-width: 10px;*/
+    /*border-color: #00ff41;*/
+
+
+}
+
+.biography-content-right {
+    margin-left: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    /*border-width: 10px;*/
+    /*border-color: #00ff41;*/
+
+    p{
+        margin: 10px;
+
+
+    }
+
+    span{
+        color: var(--ml-secondary);
+    }
+
+}
