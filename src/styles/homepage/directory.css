@@ -43,10 +43,18 @@
 
 
 }.directory-button.active {
-     z-index: 2;
-     background: var(--ml-secondary);
-    color: var(--ml-on-primary);
+     background: var(--ml-button);
+     color: white;
+     outline: 1px dotted #ffffff;
+     outline-offset: -3px;
  }
+
+.directory-button:hover {
+    background: var(--ml-button);
+    color: white;
+    border: 1px dotted #ffffff;
+    transform: translateX(2px);
+}
 
 
 .directory-panel {
@@ -96,3 +104,8 @@
             inset 1px 1px 0 #404847,
             inset -1px -1px 0 #fdf9ee;
 }
+
+
+/* ---------------- HOVER ---------------- */
+
+

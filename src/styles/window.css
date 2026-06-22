@@ -27,7 +27,8 @@
 
 .win98-button {
     background: #e6e2d7;
-    color: #1c1c15;
+    /*color: #1c1c15;*/
+    color: #cfcfcf;
     justify-content: center;
     align-items: center;
     padding: 4px 12px;
@@ -53,4 +54,13 @@
     border-right-color: var(--ml-border-2);
     box-shadow: inset 1px 1px #c0c8c6;
     padding: 5px 11px 3px 13px;
+
 }
+
+.win98-button:hover {
+    cursor: not-allowed;
+    /*color: #1c1c15;*/
+    color: #cfcfcf;
+    background-color: #e6e2d7;
+}
+

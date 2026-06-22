@@ -40,6 +40,20 @@
 
 }
 
+.contact{
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+}
+
+.contact-items{
+    position: relative;
+    display: flex;
+    gap: 20px;
+}
+
 .biography-content-right {
     margin-left: 20px;
     padding-left: 10px;

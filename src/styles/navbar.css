@@ -20,6 +20,7 @@
 .nav-links {
     display: flex;
     gap: 20px;
+
 }
 
 .nav-link, .theme-btn {
@@ -28,6 +29,12 @@
     color: var(--ml-on-surface-variant);
     text-decoration: none;
     padding: 6px 10px;
+
+    background: var(--ml-surface-container);
+    border: 3px solid var(--ml-border-1);
+    border-right-color: var(--ml-border-4);
+    border-bottom-color: var(--ml-border-3);
+    border-left-color: var(--ml-border-2);
 }
 
 .nav-link:hover {
