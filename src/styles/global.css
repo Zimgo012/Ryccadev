@@ -85,6 +85,8 @@
     --ml-border-2: #fff;
     --ml-border-3: #888;
     --ml-border-4: #888;
+
+    --ml-button: #105973;
 }
 
 /* ============================================================
@@ -135,6 +137,8 @@
     --ml-border-2: #fff;
     --ml-border-3: #888;
     --ml-border-4: #888;
+
+    --ml-button: #000080;
 }
 
 /* ============================================================
@@ -145,11 +149,6 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-
-  transition: background-color 250ms ease,
-  color 250ms ease,
-  border-color 250ms ease,
-  transform 250ms ease;
 }
 
 html {
@@ -166,152 +165,102 @@ body {
 /* ============================================================
    1970s PSYCHEDELIC FLUID WAVE PATTERN (FLAT VECTOR)
    ============================================================ */
+/* ============================================================
+   1970s PSYCHEDELIC FLUID WAVE PATTERN (FIXED & LIGHTWEIGHT)
+   ============================================================ */
 
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
+    content: "";
+    position: fixed;
+    /* Make the background layer larger than the viewport so we can move it safely */
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    z-index: -2;
+    pointer-events: none;
 
-  /* ============================================================
-     SUPER SWIRLY FLUID VECTOR FIELD (FLAT ONLY)
-     ============================================================ */
+    /* Keep your exact gradients here */
+    background-image:
+            radial-gradient(ellipse at 8% 12%, var(--ml-primary-container) 0 10%, transparent 18%),
+            radial-gradient(ellipse at 18% 20%, var(--ml-primary-container) 0 8%, transparent 16%),
+            radial-gradient(ellipse at 28% 28%, var(--ml-primary-container) 0 12%, transparent 20%),
+            radial-gradient(ellipse at 35% 60%, var(--ml-secondary) 0 14%, transparent 22%),
+            radial-gradient(ellipse at 42% 68%, var(--ml-secondary) 0 10%, transparent 18%),
+            radial-gradient(ellipse at 50% 76%, var(--ml-secondary) 0 16%, transparent 24%),
+            radial-gradient(ellipse at 55% 30%, var(--ml-tertiary) 0 12%, transparent 20%),
+            radial-gradient(ellipse at 62% 38%, var(--ml-tertiary) 0 10%, transparent 18%),
+            radial-gradient(ellipse at 70% 46%, var(--ml-tertiary) 0 14%, transparent 22%),
+            radial-gradient(ellipse at 72% 62%, var(--ml-primary) 0 16%, transparent 24%),
+            radial-gradient(ellipse at 80% 70%, var(--ml-primary) 0 12%, transparent 20%),
+            radial-gradient(ellipse at 88% 78%, var(--ml-primary) 0 14%, transparent 22%),
+            radial-gradient(ellipse at 92% 14%, var(--ml-outline-variant) 0 10%, transparent 18%),
+            radial-gradient(ellipse at 96% 22%, var(--ml-outline-variant) 0 8%, transparent 14%);
 
-  background-image:
+    filter: contrast(1.1) saturate(6);
+    background-size: 100% 100%; /* Do not animate this size */
+    background-repeat: repeat;
 
-    /* flowing top-left wave */
-          radial-gradient(ellipse at 8% 12%,
-          var(--ml-primary-container) 0 10%,
-          transparent 18%),
-          radial-gradient(ellipse at 18% 20%,
-          var(--ml-primary-container) 0 8%,
-          transparent 16%),
-          radial-gradient(ellipse at 28% 28%,
-          var(--ml-primary-container) 0 12%,
-          transparent 20%),
-
-            /* magenta swirl arc */
-          radial-gradient(ellipse at 35% 60%,
-          var(--ml-secondary) 0 14%,
-          transparent 22%),
-          radial-gradient(ellipse at 42% 68%,
-          var(--ml-secondary) 0 10%,
-          transparent 18%),
-          radial-gradient(ellipse at 50% 76%,
-          var(--ml-secondary) 0 16%,
-          transparent 24%),
-
-            /* cyan/tertiary liquid bend */
-          radial-gradient(ellipse at 55% 30%,
-          var(--ml-tertiary) 0 12%,
-          transparent 20%),
-          radial-gradient(ellipse at 62% 38%,
-          var(--ml-tertiary) 0 10%,
-          transparent 18%),
-          radial-gradient(ellipse at 70% 46%,
-          var(--ml-tertiary) 0 14%,
-          transparent 22%),
-
-            /* primary wave sweep */
-          radial-gradient(ellipse at 72% 62%,
-          var(--ml-primary) 0 16%,
-          transparent 24%),
-          radial-gradient(ellipse at 80% 70%,
-          var(--ml-primary) 0 12%,
-          transparent 20%),
-          radial-gradient(ellipse at 88% 78%,
-          var(--ml-primary) 0 14%,
-          transparent 22%),
-
-            /* trailing edge swirl */
-          radial-gradient(ellipse at 92% 14%,
-          var(--ml-outline-variant) 0 10%,
-          transparent 18%),
-          radial-gradient(ellipse at 96% 22%,
-          var(--ml-outline-variant) 0 8%,
-          transparent 14%);
-
-  filter: contrast(1.1) saturate(6);
-  background-size: 120% 120%;
-  background-repeat: repeat;
-
-  animation: liquidBreath 12s ease-in-out infinite alternate;
-
+    /* FIX: Forces the browser to handle this layer on the GPU */
+    will-change: transform;
+    /* FIX: Use transform instead of background-size for the animation */
+    animation: liquidBreath 12s ease-in-out infinite alternate;
 }
 
 body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
 
-  /* ============================================================
-     CRT SCANLINES + HOLOGRAPHIC WOBBLE LAYER
-     ============================================================ */
+    background:
+            repeating-linear-gradient(
+                    to bottom,
+                    rgba(0, 0, 0, 0.06) 0px,
+                    rgba(0, 0, 0, 0.06) 1px,
+                    transparent 2px,
+                    transparent 4px
+            ),
+            repeating-linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.03) 0px,
+                    rgba(255, 255, 255, 0.03) 1px,
+                    transparent 3px,
+                    transparent 6px
+            );
 
-  background:
-    /* scanlines */
-          repeating-linear-gradient(
-                  to bottom,
-                  rgba(0, 0, 0, 0.06) 0px,
-                  rgba(0, 0, 0, 0.06) 1px,
-                  transparent 2px,
-                  transparent 4px
-          ),
+    /* REMOVED mix-blend-mode: overlay; -> Blend modes on animated elements are highly expensive */
+    opacity: 0.15; /* Adjusted opacity directly instead of using overlay */
 
-            /* subtle vertical interference lines */
-          repeating-linear-gradient(
-                  90deg,
-                  rgba(255, 255, 255, 0.03) 0px,
-                  rgba(255, 255, 255, 0.03) 1px,
-                  transparent 3px,
-                  transparent 6px
-          );
-
-  mix-blend-mode: overlay;
-  opacity: 0.35;
-
-  animation: crtWobble 6s infinite linear, crtFlicker 140ms infinite;
+    will-change: transform;
+    /* Keep wobble, but crtFlicker is removed to prevent rapid repaints */
+    animation: crtWobble 6s infinite linear;
 }
 
 
 /* ============================================================
-   KEYFRAMES
+   OPTIMIZED KEYFRAMES (Using Hardware-Accelerated Transforms)
    ============================================================ */
+
+@keyframes liquidBreath {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        transform: translate(2%, 2%) scale(1.05); /* Simulates the wave breathing smoothly */
+    }
+}
 
 /* slow horizontal monitor wobble */
 @keyframes crtWobble {
-  0% {
-    transform: translateX(0px) skewX(0deg);
-  }
-  25% {
-    transform: translateX(1px) skewX(0.2deg);
-  }
-  50% {
-    transform: translateX(-1px) skewX(-0.2deg);
-  }
-  75% {
-    transform: translateX(0.5px) skewX(0.1deg);
-  }
-  100% {
-    transform: translateX(0px) skewX(0deg);
-  }
+    0% { transform: translateX(0px) skewX(0deg); }
+    25% { transform: translateX(0.5px) skewX(0.1deg); } /* Reduced values for sub-pixel smoothness */
+    50% { transform: translateX(-0.5px) skewX(-0.1deg); }
+    75% { transform: translateX(0.2px) skewX(0.05deg); }
+    100% { transform: translateX(0px) skewX(0deg); }
 }
 
-/* flicker instability (CRT refresh feel) */
-@keyframes crtFlicker {
-  0% {
-    opacity: 0.28;
-  }
-  50% {
-    opacity: 0.4;
-  }
-  100% {
-    opacity: 0.3;
-  }
-}
 
 
 @keyframes liquidBreath {
@@ -378,13 +327,13 @@ button {
 
 button:hover {
   cursor: pointer;
-  background-color: var(--ml-secondary);
+  background-color: var(--ml-button);
   color: var(--ml-on-primary);
 }
 
 
 button:active {
-  transform: translate(1px, 1px);
+  /*transform: translate(1px, 1px);*/
 
   /* INSET LOOK (pressed) */
   border-top-color: var(--ml-outline);
