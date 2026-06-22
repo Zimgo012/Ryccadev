@@ -1,0 +1,46 @@
+.content{
+    height: auto;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    background: var(--ml-bg);
+    border: 4px solid;
+    border-top-color: var(--ml-border-3);
+    border-left-color: var(--ml-border-4);
+    border-bottom-color: var(--ml-border-1);
+    border-right-color: var(--ml-border-2);
+
+    box-shadow:
+            inset 1px 1px 0 #404847,
+            inset -1px -1px 0 #fdf9ee;
+
+
+    }
+.item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    cursor: pointer;
+    /*transition: 0.15s ease;*/
+}
+
+/* ---------------- HOVER ---------------- */
+.item:hover {
+    background: var(--ml-button);
+    color: white;
+    border: 1px dotted #ffffff;
+    /*transform: translateX(2px);*/
+}
+
+/* ---------------- SELECTED (REAL STATE) ---------------- */
+.item.active {
+    background: var(--ml-button);
+    color: white;
+    outline: 1px dotted #ffffff;
+    outline-offset: -3px;
+}
+

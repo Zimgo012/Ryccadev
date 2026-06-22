@@ -1,0 +1,119 @@
+---
+import "../../../styles/homepage/hero2-section/filepane.css";
+import { sections } from "../../../config/sections";
+
+const { collections } = Astro.props;
+---
+
+<div class="file-pane" id="filePane"></div>
+
+<script define:vars={{ collections, sections }}>
+    /* ---------------- DOM ---------------- */
+    const filePane = document.getElementById("filePane");
+
+    let previewWindow, previewTitle, previewBody;
+    let activeFile = null;
+
+    /* wait until preview exists (important in Astro islands) */
+    function getPreview() {
+        previewWindow = document.getElementById("previewWindow");
+        previewTitle = document.getElementById("previewTitle");
+        previewBody = document.getElementById("previewBody");
+    }
+
+    getPreview();
+
+    /* ---------------- RENDER FILES ---------------- */
+    function renderFiles(sectionKey) {
+
+        const config = sections[sectionKey];
+        if (!config) return;
+
+        const files = collections?.[config.collection] ?? [];
+        const icon = config.icon;
+
+        filePane.innerHTML = "";
+
+        if (!files.length) {
+            filePane.innerHTML = `<p>No files found.</p>`;
+            return;
+        }
+
+        files.forEach((file) => {
+
+            const data = file.data;
+
+            const title =
+                data.name ??
+                data.title ??
+                file.id;
+
+            const div = document.createElement("div");
+            div.className = "file-item";
+
+            div.innerHTML = `
+            <img src="${icon}" width="40"/>
+            <span>${title}</span>
+        `;
+
+            div.addEventListener("click", () => {
+
+                getPreview();
+                if (!previewWindow) return;
+
+                /* ---------------- ACTIVE STATE ---------------- */
+                if (activeFile) {
+                    activeFile.classList.remove("active");
+                }
+
+                div.classList.add("active");
+                activeFile = div;
+
+                /* ---------------- SHOW PREVIEW ---------------- */
+                previewWindow.style.display = "flex";
+
+                previewTitle.textContent = "Preview";
+
+                previewBody.innerHTML = `
+                <div class="title">
+                <h2>${title}</h2>                  
+                </div>
+                <br/>
+
+                ${data.summary ? `<p>${data.summary}</p>` : ""}
+                <br/>
+
+                ${data.author ? `<p><strong>Author:</strong> ${data.author}</p>` : ""}
+                
+                <div class="prev-links">
+                ${data.projectlink ? `
+                    <p><a href="${data.projectlink}" target="_blank" class ="link-item">Open Project</a></p>
+                ` : ""}
+
+                ${data.blogLink ? `
+                    <p><a href="${data.blogLink}" target="_blank" class ="link-item">Open Blog</a></p>
+                ` : ""}
+                </div>
+                
+            `;
+
+                /* ---------------- POSITION PREVIEW ---------------- */
+                const rect = div.getBoundingClientRect();
+                const parentRect = filePane.getBoundingClientRect();
+
+                previewWindow.style.left = `${rect.right - parentRect.left + 250}px`;
+                previewWindow.style.top = `${rect.top - parentRect.top}px`;
+            });
+
+            filePane.appendChild(div);
+        });
+    }
+
+    /* ---------------- LISTEN FROM SIDESCROLL ---------------- */
+    window.addEventListener("section-change", (e) => {
+        renderFiles(e.detail);
+    });
+
+    /* ---------------- INIT (EMPTY STATE) ---------------- */
+    filePane.innerHTML = "";
+</script>

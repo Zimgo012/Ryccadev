@@ -1,0 +1,58 @@
+---
+import "../../../styles/homepage/hero2-section/sidescroll.css"
+---
+
+<div class="content" id="sideScroll"></div>
+
+<script type="module">
+    import { sections } from "/src/config/sections.js";
+
+    const container = document.getElementById("sideScroll");
+
+    let activeItem = null;
+
+    Object.entries(sections).forEach(([key, section]) => {
+
+        const div = document.createElement("div");
+        div.className = "item";
+        div.dataset.section = key;
+
+        div.innerHTML = `
+            <img src="${section.icon}" width="30"/>
+            <span>${section.label}</span>
+        `;
+
+        div.addEventListener("click", () => {
+
+            /* ---------------- ACTIVE STATE ---------------- */
+            if (activeItem) {
+                activeItem.classList.remove("active");
+            }
+
+            div.classList.add("active");
+            activeItem = div;
+
+            /* ---------------- EMIT EVENT ---------------- */
+            window.dispatchEvent(
+                new CustomEvent("section-change", {
+                    detail: key
+                })
+            );
+        });
+
+        container.appendChild(div);
+    });
+
+    /* ---------------- DEFAULT ACTIVE ---------------- */
+    const first = container.querySelector(".item");
+    if (first) {
+        first.classList.add("active");
+        activeItem = first;
+
+        window.dispatchEvent(
+            new CustomEvent("section-change", {
+                detail: first.dataset.section
+            })
+        );
+    }
+</script>

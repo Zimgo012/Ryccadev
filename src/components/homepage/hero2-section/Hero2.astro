@@ -1,0 +1,30 @@
+---
+import "../../../styles/homepage/hero2-section/hero2.css"
+import Window from '../../Window.astro';
+import SideScroll from "./SideScroll.astro";
+import FilePane from "./FilePane.astro";
+import Preview from "./Preview.astro";
+
+import { getCollection } from "astro:content";
+const projects = await getCollection("projects");
+const blogs = await getCollection("blogs");
+
+---
+<div class="hero2">
+    <div class="hero2-content">
+
+            <Window>
+              <div class="inside-content">
+                  <SideScroll/>
+                  <FilePane
+                          collections={{
+                              projects,
+                              blogs,
+                          }}
+                  />
+                  <Preview/>
+              </div>
+            </Window>
+    </div>
+
+</div>

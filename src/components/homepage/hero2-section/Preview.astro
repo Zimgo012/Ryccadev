@@ -1,0 +1,25 @@
+---
+import '../../../styles/homepage/hero2-section/preview.css'
+---
+
+<div class="preview-window" id="previewWindow" style="display: none;">
+    <div class="preview-titlebar">
+        <span id="previewTitle">Preview</span>
+        <button id="closePreview" class="closePreview">✕</button>
+    </div>
+
+    <div class="preview-body" id="previewBody">
+    </div>
+</div>
+
+
+
+<script type="module">
+    const previewWindow = document.getElementById("previewWindow");
+    const closeBtn = document.getElementById("closePreview");
+
+    /* ---------------- CLOSE BEHAVIOR ---------------- */
+    closeBtn.addEventListener("click", () => {
+        previewWindow.style.display = "none";
+    });
+</script>

@@ -1,0 +1,111 @@
+.preview-window {
+    position: absolute;
+
+    width: 640px;
+    min-height: 220px;
+
+    background: var(--ml-bg);
+
+    border: 2px solid;
+    border-top-color: var(--ml-border-1);
+    border-left-color: var(--ml-border-2);
+    border-bottom-color: var(--ml-border-3);
+    border-right-color: var(--ml-border-4);
+
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+
+    box-shadow:
+            0 10px 25px rgba(0,0,0,0.3),
+            inset 1px 1px 0 #404847,
+            inset -1px -1px 0 #fdf9ee;
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 10;
+}
+
+.preview-body{
+    padding: 25px
+}
+
+
+/*=========== TITLE BAR ============*/
+.preview-titlebar {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+    justify-content: space-between;
+    color: white;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.closePreview {
+    background: #e6e2d7;
+    color: #1c1c15;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    border: 2px solid;
+    border-top-color: var(--ml-border-1);
+    border-left-color: var(--ml-border-2);
+    border-bottom-color: var(--ml-border-3);
+    border-right-color: var(--ml-border-4);
+    border-width: 0px;
+    outline: 1px solid #1c1c15;
+    box-shadow: inset 1px 1px #fdf9ee;
+
+    width: 10px;
+    height: 23px;
+}
+.closePreview:active {
+    border-top-color: var(--ml-border-3);
+    border-left-color: var(--ml-border-4);
+    border-bottom-color: var(--ml-border-1);
+    border-right-color: var(--ml-border-2);
+    box-shadow: inset 1px 1px #c0c8c6;
+    padding: 5px 11px 3px 13px;
+}
+
+.prev-links{
+    display: flex;
+    gap: 16px;
+}
+
+.link-item{
+    align-items: center;
+    justify-self: center;
+    background: var(--ml-surface-container);
+    border: 3px solid var(--ml-border-1);
+    border-right-color: var(--ml-border-4);
+    border-bottom-color: var(--ml-border-3);
+    border-left-color: var(--ml-border-2);
+}
+
+.link-item:hover {
+    background: var(--ml-button);
+    color: white;
+    border: 1px dotted #ffffff;
+    /*transform: translateX(2px);*/
+}
+
+/* ---------------- ACTIVE / SELECTED ---------------- */
+.link-item.active {
+    background: var(--ml-button);
+    color: white;
+    outline: 1px dotted #ffffff;
+    outline-offset: -3px;
+}
+
+
+
+
+
+
+
