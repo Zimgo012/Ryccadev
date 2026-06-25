@@ -1,7 +1,7 @@
 ---
 import "../../styles/blogs/blogs.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Window from "../../components/Window.astro";
+import Window2 from "../../components/Window2.astro";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -19,7 +19,7 @@ const { Content } = await render(post);
 
 <BaseLayout>
     <div class="blog-main">
-        <Window>
+        <Window2>
 
             <div class="back-link">
                 <a class="back-link" href="/blogs">← back to blogs</a>
@@ -28,6 +28,6 @@ const { Content } = await render(post);
             <div class="blog-content">
                 <Content />
             </div>
-        </Window>
+        </Window2>
     </div>
 </BaseLayout>

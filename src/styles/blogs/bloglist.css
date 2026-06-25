@@ -54,3 +54,12 @@
     outline: 1px dotted #ffffff;
     outline-offset: -3px;
 }
+
+@media (max-width: 320px) {
+
+    .blog-main{
+        padding: 20px;
+        margin-top: 40px;
+    }
+
+}

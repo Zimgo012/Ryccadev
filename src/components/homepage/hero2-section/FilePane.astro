@@ -47,10 +47,10 @@ const { collections } = Astro.props;
         const parentRect = filePane.getBoundingClientRect();
 
         previewWindow.style.left =
-            `${rect.right - parentRect.left + 250}px`;
+            `${rect.right - parentRect.left + 15}px`;
 
         previewWindow.style.top =
-            `${rect.top - parentRect.top}px`;
+            `${rect.top - parentRect.top + 100}px`;
     }
 
     function renderFiles(sectionKey) {
@@ -158,7 +158,9 @@ const { collections } = Astro.props;
             collections?.[config.collection] ?? [];
 
         if (!files.length) {
-            filePane.innerHTML = "<p>No files found.</p>";
+            filePane.innerHTML = "<div class=\"file-item\">\n" +
+                "    No files found.\n" +
+                "</div>";
             return;
         }
 

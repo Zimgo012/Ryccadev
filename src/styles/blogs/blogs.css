@@ -91,3 +91,32 @@
 .blog-content::-webkit-scrollbar-track {
     background: #ddd;
 }
+
+
+
+@media (max-width: 320px) {
+
+    .blog-main{
+        padding: 20px;
+        margin-top: 40px;
+    }
+
+    .blog-content {
+        padding: 12px;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .blog-content h1 {
+        margin: 12px 0;
+    }
+
+    .blog-content h2 {
+        padding-left: 6px;
+    }
+
+    .blog-content ul,
+    .blog-content ol {
+        padding-left: 16px;
+    }
+}

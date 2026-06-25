@@ -10,12 +10,38 @@
 
     padding: 12px 20px;
     font-family: 'Hanken Grotesk', system-ui, sans-serif;
+
     background-color: var(--ml-surface);
     border-top: 1px solid var(--ml-outline-variant);
 
     z-index: 999;
+
+    /* 🔥 prevent overflow issues */
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+.footer-left,
+.footer-right {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .footer-right {
     color: var(--ml-surface-container-highest);
+}
+
+@media (max-width: 640px) {
+
+    .footer {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+
+    .footer-left,
+    .footer-right {
+        font-size: 10px;
+    }
 }

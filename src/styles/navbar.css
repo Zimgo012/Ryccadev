@@ -63,9 +63,38 @@
 
 }
 
-/*Responsiveness here*/
-@media{
-    .nav-links {}
+@media (max-width: 320px) {
+
+    /* Hide logo/title */
+    .nav-left-side {
+        display: none;
+    }
+
+    .nav-logo{
+        display: none;
+    }
+
+    /* Hide version text */
+    .version-num {
+        display: none;
+    }
+
+    .nav {
+        padding: 8px;
+    }
+
+    .nav-links {
+        gap: 4px;
+    }
+
+    .nav-right-side {
+        gap: 4px;
+    }
+
+    .nav-link,
+    .theme-btn {
+        padding: 4px 6px;
+        font-size: 9px;
+        border-width: 2px;
+    }
 }
-
-

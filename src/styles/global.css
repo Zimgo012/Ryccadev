@@ -152,8 +152,8 @@
 }
 
 html {
-  font-family: var(--font-sans);
-  background: var(--ml-bg);
+    font-family: var(--font-sans);
+    background: var(--ml-bg);
   color: var(--ml-on-surface);
 }
 
@@ -324,4 +324,26 @@ button:active {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 16px;
+}
+
+
+@media (max-width: 320px) {
+
+    html, body {
+        background: var(--ml-on-surface-variant);
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+        display: none !important;
+        opacity: 0 !important;
+    }
+
+    .container {
+        padding: 8px;
+    }
 }

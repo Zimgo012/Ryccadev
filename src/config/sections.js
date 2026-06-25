@@ -13,10 +13,10 @@ export const sections = {
         template: "blogPreview"
     },
 
-    others: {
-        label: "Others",
-        icon: "/w95_44.ico",
-        collection: "others",
-        template: "defaultPreview"
-    }
+    // others: {
+    //     label: "Others",
+    //     icon: "/w95_44.ico",
+    //     collection: "others",
+    //     template: "defaultPreview"
+    // }
 };

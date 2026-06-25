@@ -44,3 +44,32 @@
     outline-offset: -3px;
 }
 
+
+@media (max-width: 640px){
+    .item {
+        gap: 2px;
+        padding: 1px 3px;
+        font-size: 11px;
+
+    }
+}
+
+@media (max-width: 320px){
+    .content {
+        padding: 8px;
+        gap: 6px;
+    }
+
+    .item {
+        gap: 6px;
+        padding: 6px;
+        font-size: 11px;
+    }
+
+    .item img {
+        width: 18px;
+        height: 18px;
+    }
+
+}
+

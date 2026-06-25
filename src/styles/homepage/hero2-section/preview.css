@@ -4,6 +4,8 @@
     width: 640px;
     min-height: 220px;
 
+    max-width: 90vw;   /* 🔥 prevents overflow on small screens */
+
     background: var(--ml-bg);
 
     border: 2px solid;
@@ -104,8 +106,63 @@
 }
 
 
+@media (max-width: 1024px) {
+    .preview-window {
+        width: 320px;   /* tablet size */
+    }
+
+    .prev-links{
+        display: flex;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 640px) {
+    .preview-window {
+        width: 220px;   /* tablet size */
+    }
+
+    .prev-links{
+        display: flex;
+        gap: 15px;
+    }
+}
+@media (max-width: 320px) {
+    .preview-window {
+        width: 220px;
+    }
+}
+
+@media (max-width: 320px) {
+    .preview-window {
+
+        max-width: 100%;
 
 
+        position: relative;
+        left: auto !important;
+        top: auto !important;
 
+        min-height: auto;
+    }
 
+    /*.preview-body {*/
+    /*    padding: 10px;*/
+    /*}*/
+
+    /*.preview-body h2 {*/
+    /*    font-size: 14px;*/
+    /*}*/
+
+    /*.preview-body p {*/
+    /*    font-size: 12px;*/
+    /*    overflow-wrap: anywhere;*/
+    /*}*/
+
+    /*.closePreview {*/
+    /*    width: 20px;*/
+    /*    min-width: 20px;*/
+    /*    padding: 0;*/
+    /*}*/
+}
 

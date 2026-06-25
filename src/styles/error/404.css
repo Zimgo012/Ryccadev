@@ -1,0 +1,38 @@
+.bsod {
+    position: fixed;
+    inset: 0;
+    background: #0000aa; /* classic BSOD blue */
+    color: #ffffff;
+
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+}
+
+.bsod-inner {
+    max-width: 800px;
+    line-height: 1.6;
+}
+
+.bsod-title {
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.bsod-press {
+    margin-top: 24px;
+    font-weight: bold;
+    animation: blink 1s steps(2, start) infinite;
+}
+
+/* blinking cursor effect */
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}

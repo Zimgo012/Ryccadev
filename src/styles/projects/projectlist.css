@@ -51,3 +51,27 @@
     outline: 1px dotted #ffffff;
     outline-offset: -3px;
 }
+
+
+@media (max-width: 320px) {
+
+    .project-list-main{
+        padding: 20px;
+        margin-top: 40px;
+    }
+
+    .blog-link {
+        display: block;
+        width: 100%;
+
+        margin-left: 0;
+        margin-bottom: 8px;
+
+        font-size: 11px;
+    }
+
+    .blog-link:last-child {
+        margin-bottom: 0;
+    }
+
+}

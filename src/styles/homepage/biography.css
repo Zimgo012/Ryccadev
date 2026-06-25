@@ -2,19 +2,28 @@
 /*========== MAIN CONTENT =============*/
 .biography-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-columns: 25% 75%;
-    align-content: center;
-    position: relative;
+    gap: 20px;
     padding: 20px;
 }
 
-.biography-content-left {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    position: relative;
+.biography-content > * {
+    min-width: 0;
+}
 
+.biography-content-right {
+    padding: 0 10px;
+    min-width: 0;
+}
+
+.biography-content-left {
+    min-width: 0;
+}
+
+.biography-content p,
+.biography-content span {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 }
 
 .profile{
@@ -40,24 +49,26 @@
 
 }
 
-.contact{
-    position: relative;
+.contact {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
-
 }
 
-.contact-items{
-    position: relative;
+.contact-items {
     display: flex;
     gap: 20px;
+    min-width: 0;
+    flex-wrap: wrap;
+}
+
+.contact > * {
+    min-width: 0;
 }
 
 .biography-content-right {
-    margin-left: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 0 10px;
+    min-width: 0;
 
     /*border-width: 10px;*/
     /*border-color: #00ff41;*/
@@ -72,4 +83,43 @@
         color: var(--ml-secondary);
     }
 
+}
+
+@media (max-width: 320px) {
+
+    .contact {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .contact-items {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        width: 100%;
+        min-width: 0;
+
+        padding: 6px;
+    }
+
+    .contact-items img {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+    }
+
+    .contact-items span,
+    .contact-items a,
+    .contact-items p {
+        min-width: 0;
+
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        white-space: normal;
+
+        font-size: 12px;
+    }
 }
