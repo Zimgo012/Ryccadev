@@ -1,0 +1,38 @@
+---
+import '../../styles/blogs/bloglist.css'
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Window2 from "../../components/Window2.astro";
+import { getCollection } from "astro:content";
+
+/* get ALL markdown files in src/content/md/blogs */
+const posts = await getCollection("blogs");
+---
+
+<BaseLayout>
+    <div class="blog-main">
+        <Window2>
+            <div class="blog-content">
+
+                {posts.map((post) => (
+                        <div class="blog-item">
+                            <h2>{post.data.title}</h2>
+                            {post.data.summary && (
+                                    <p>{post.data.summary}</p>
+                            )}
+
+                            {post.data.author && (
+                                    <small>By {post.data.author}</small>
+                            )}
+                            <br/>
+                            <br/>
+                            <a class="blog-link" href={`/blogs/${post.id}`}>
+                                Read more
+                            </a>
+                        </div>
+
+                ))}
+
+            </div>
+        </Window2>
+    </div>
+</BaseLayout>

@@ -1,0 +1,93 @@
+.blog-main {
+    position: relative;
+    margin-top: 100px;
+    width: 100%;
+    height: 85vh;
+    padding: 20px;
+}
+
+/* WINDOW SCROLL CONTAINER */
+.blog-content {
+    height: 90%;
+    overflow-y: auto;
+
+    padding: 40px;
+    font-family: Tahoma, system-ui, sans-serif;
+    line-height: 1.6;
+    color: var(--ml-on-surface-variant);
+
+    scroll-behavior: smooth;
+}
+
+/* ---------------- HEADINGS ---------------- */
+.blog-content h1 {
+    font-size: 28px;
+    margin: 18px 0;
+    border-bottom: 2px solid #1084d0;
+}
+
+.blog-content h2 {
+    font-size: 22px;
+    margin-top: 20px;
+    border-left: 4px solid #1084d0;
+    padding-left: 8px;
+}
+
+.blog-content h3 {
+    font-size: 18px;
+    margin-top: 16px;
+}
+
+/* ---------------- TEXT ---------------- */
+.blog-content p {
+    margin: 10px 0;
+}
+
+/* ---------------- LINKS ---------------- */
+.blog-content a {
+    color: #0b66c3;
+}
+
+/* ---------------- LISTS ---------------- */
+.blog-content ul,
+.blog-content ol {
+    padding-left: 20px;
+}
+
+/* ---------------- CODE ---------------- */
+.blog-content pre {
+    background: #0b0f14;
+    color: #00ff9c;
+    padding: 14px;
+    border: 2px solid #333;
+    overflow-x: auto;
+}
+
+/* ---------------- IMAGES ---------------- */
+.blog-content img {
+    max-width: 100%;
+    margin: 12px 0;
+    border: 3px solid;
+    border-top-color: #fff;
+    border-left-color: #fff;
+    border-right-color: #888;
+    border-bottom-color: #888;
+}
+
+/* GIF SPECIAL */
+.blog-content img[src$=".gif"] {
+    border: 3px dashed #1084d0;
+}
+
+.blog-content::-webkit-scrollbar {
+    width: 12px;
+}
+
+.blog-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border: 2px solid #ccc;
+}
+
+.blog-content::-webkit-scrollbar-track {
+    background: #ddd;
+}

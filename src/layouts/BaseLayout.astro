@@ -1,19 +1,9 @@
 ---
 import "../styles/global.css";
-import "../styles/homepage/homepage.css";
 
 import Navbar           from "../components/Navbar.astro";
-import Hero             from "../components/homepage/Hero.astro";
-import About            from "../components/homepage/About.astro";
-import Projects         from "../components/homepage/Projects.astro";
-import Skills           from "../components/homepage/Skills.astro";
-import Contact          from "../components/homepage/Contact.astro";
 import Footer           from "../components/Footer.astro";
 
-import CrossPattern       from "../components/background/CrossPattern.astro";
-import DotPattern         from "../components/background/DotPattern.astro";
-    import GradientBackground from "../components/background/GradientBackground.astro";
-import GridPattern        from "../components/background/GridPattern.astro";
 ---
 
 <html lang="en">
@@ -31,13 +21,13 @@ import GridPattern        from "../components/background/GridPattern.astro";
     rel="stylesheet"
   />
 </head>
-
 <body id="body">
 
-  <!-- NAV -->
-  <Navbar />
 
-  <slot/>
+  <Navbar />
+  <!--<div class="crt-screen">-->
+  <slot />
+  <!--</div>-->
 
   <Footer />
 

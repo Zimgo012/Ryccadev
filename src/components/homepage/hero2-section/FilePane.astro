@@ -8,13 +8,14 @@ const { collections } = Astro.props;
 <div class="file-pane" id="filePane"></div>
 
 <script define:vars={{ collections, sections }}>
-    /* ---------------- DOM ---------------- */
+
     const filePane = document.getElementById("filePane");
 
-    let previewWindow, previewTitle, previewBody;
+    let previewWindow;
+    let previewTitle;
+    let previewBody;
     let activeFile = null;
 
-    /* wait until preview exists (important in Astro islands) */
     function getPreview() {
         previewWindow = document.getElementById("previewWindow");
         previewTitle = document.getElementById("previewTitle");
@@ -23,19 +24,141 @@ const { collections } = Astro.props;
 
     getPreview();
 
-    /* ---------------- RENDER FILES ---------------- */
+    function setActive(div) {
+        if (activeFile) {
+            activeFile.classList.remove("active");
+        }
+
+        div.classList.add("active");
+        activeFile = div;
+    }
+
+    function showPreview(title, html, div) {
+
+        getPreview();
+
+        if (!previewWindow) return;
+
+        previewWindow.style.display = "flex";
+        previewTitle.textContent = "Preview";
+        previewBody.innerHTML = html;
+
+        const rect = div.getBoundingClientRect();
+        const parentRect = filePane.getBoundingClientRect();
+
+        previewWindow.style.left =
+            `${rect.right - parentRect.left + 250}px`;
+
+        previewWindow.style.top =
+            `${rect.top - parentRect.top}px`;
+    }
+
     function renderFiles(sectionKey) {
 
         const config = sections[sectionKey];
-        if (!config) return;
 
-        const files = collections?.[config.collection] ?? [];
-        const icon = config.icon;
+        if (!config) return;
 
         filePane.innerHTML = "";
 
+        const icon = config.icon;
+
+        /* =====================================================
+           PROJECTS (JSON DATABASE)
+        ===================================================== */
+
+        if (sectionKey === "projects") {
+
+            const projectFile =
+                collections?.projects?.[0];
+
+            const projects =
+                projectFile?.data?.projects ?? [];
+
+            if (!projects.length) {
+                filePane.innerHTML = "<p>No projects found.</p>";
+                return;
+            }
+
+            projects.forEach((project) => {
+
+                const div = document.createElement("div");
+                div.className = "file-item";
+
+                div.innerHTML = `
+                    <img src="${icon}" width="40"/>
+                    <span>${project.name}</span>
+                `;
+
+                div.addEventListener("click", () => {
+
+                    setActive(div);
+
+                    showPreview(
+                        project.name,
+                        `
+                        <div class="title">
+                            <h2>${project.name}</h2>
+                        </div>
+
+                        <br/>
+
+                        <p>${project.summary ?? ""}</p>
+
+                        <br/>
+
+                        <div class="prev-links">
+
+                            ${
+                            project.projectlink
+                                ? `
+                                <p>
+                                    <a
+                                        href="${project.projectlink}"
+                                        target="_blank"
+                                        class="link-item">
+                                        Open Project
+                                    </a>
+                                </p>
+                                `
+                                : ""
+                        }
+
+                            ${
+                            project.blogLink
+                                ? `
+                                <p>
+                                    <a
+                                        href="${project.blogLink}"
+                                        class="link-item">
+                                        Project Blog
+                                    </a>
+                                </p>
+                                `
+                                : ""
+                        }
+
+                        </div>
+                        `,
+                        div
+                    );
+                });
+
+                filePane.appendChild(div);
+            });
+
+            return;
+        }
+
+        /* =====================================================
+           BLOGS (MARKDOWN COLLECTION)
+        ===================================================== */
+
+        const files =
+            collections?.[config.collection] ?? [];
+
         if (!files.length) {
-            filePane.innerHTML = `<p>No files found.</p>`;
+            filePane.innerHTML = "<p>No files found.</p>";
             return;
         }
 
@@ -44,76 +167,63 @@ const { collections } = Astro.props;
             const data = file.data;
 
             const title =
-                data.name ??
                 data.title ??
+                data.name ??
                 file.id;
 
             const div = document.createElement("div");
+
             div.className = "file-item";
 
             div.innerHTML = `
-            <img src="${icon}" width="40"/>
-            <span>${title}</span>
-        `;
+                <img src="${icon}" width="40"/>
+                <span>${title}</span>
+            `;
 
             div.addEventListener("click", () => {
 
-                getPreview();
-                if (!previewWindow) return;
+                setActive(div);
 
-                /* ---------------- ACTIVE STATE ---------------- */
-                if (activeFile) {
-                    activeFile.classList.remove("active");
-                }
+                showPreview(
+                    title,
+                    `
+                    <div class="title">
+                        <h2>${title}</h2>
+                    </div>
 
-                div.classList.add("active");
-                activeFile = div;
+                    <br/>
 
-                /* ---------------- SHOW PREVIEW ---------------- */
-                previewWindow.style.display = "flex";
+                    ${data.summary ? `<p>${data.summary}</p>` : ""}
 
-                previewTitle.textContent = "Preview";
+                    <br/>
 
-                previewBody.innerHTML = `
-                <div class="title">
-                <h2>${title}</h2>                  
-                </div>
-                <br/>
+                    ${data.author
+                        ? `<p><strong>Author:</strong> ${data.author}</p>`
+                        : ""
+                    }
 
-                ${data.summary ? `<p>${data.summary}</p>` : ""}
-                <br/>
-
-                ${data.author ? `<p><strong>Author:</strong> ${data.author}</p>` : ""}
-                
-                <div class="prev-links">
-                ${data.projectlink ? `
-                    <p><a href="${data.projectlink}" target="_blank" class ="link-item">Open Project</a></p>
-                ` : ""}
-
-                ${data.blogLink ? `
-                    <p><a href="${data.blogLink}" target="_blank" class ="link-item">Open Blog</a></p>
-                ` : ""}
-                </div>
-                
-            `;
-
-                /* ---------------- POSITION PREVIEW ---------------- */
-                const rect = div.getBoundingClientRect();
-                const parentRect = filePane.getBoundingClientRect();
-
-                previewWindow.style.left = `${rect.right - parentRect.left + 250}px`;
-                previewWindow.style.top = `${rect.top - parentRect.top}px`;
+                    <div class="prev-links">
+                        <p>
+                            <a
+                                href="/blogs/${file.id}"
+                                class="link-item">
+                                Read Blog
+                            </a>
+                        </p>
+                    </div>
+                    `,
+                    div
+                );
             });
 
             filePane.appendChild(div);
         });
     }
 
-    /* ---------------- LISTEN FROM SIDESCROLL ---------------- */
     window.addEventListener("section-change", (e) => {
         renderFiles(e.detail);
     });
 
-    /* ---------------- INIT (EMPTY STATE) ---------------- */
     filePane.innerHTML = "";
+
 </script>

@@ -32,6 +32,13 @@ import "../../../styles/homepage/hero2-section/sidescroll.css"
             div.classList.add("active");
             activeItem = div;
 
+            /* ---------------- HIDE PREVIEW ---------------- */
+            const previewWindow = document.getElementById("previewWindow");
+
+            if (previewWindow) {
+                previewWindow.style.display = "none";
+            }
+
             /* ---------------- EMIT EVENT ---------------- */
             window.dispatchEvent(
                 new CustomEvent("section-change", {

@@ -1,0 +1,72 @@
+---
+import '../../styles/projects/projectlist.css'
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Window2 from "../../components/Window2.astro";
+import { getCollection } from "astro:content";
+
+/* project collection contains projectlist.json */
+const projectFiles = await getCollection("projects");
+
+/* flatten all projects from all json files */
+const projects = projectFiles.flatMap(
+    (file) => file.data.projects ?? []
+);
+---
+
+<BaseLayout>
+    <div class="project-list-main">
+
+        <Window2>
+
+            <div class="project-list-content">
+
+                {projects.map((project) => (
+
+                        <div class="project-list-item">
+
+                            <h2>{project.name}</h2>
+
+                            {project.summary && (
+                                    <p>{project.summary}</p>
+                            )}
+
+                            <br />
+
+                            <div class="link-section">
+
+                                {project.blogLink && (
+                                        <>
+                                            <a
+                                                    class="blog-link"
+                                                    href={project.blogLink}
+                                            >
+                                                Read blog about this project
+                                            </a>
+
+                                            &nbsp;&nbsp;
+                                        </>
+                                )}
+
+                                {project.projectlink && (
+                                        <a
+                                                class="blog-link"
+                                                href={project.projectlink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                        >
+                                            Open Project
+                                        </a>
+                                )}
+
+                            </div>
+
+                        </div>
+
+                ))}
+
+            </div>
+
+        </Window2>
+
+    </div>
+</BaseLayout>

@@ -1,0 +1,157 @@
+.blog-list-window {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #c0c0c0;
+
+    border: 2px solid;
+    border-top-color: #ffffff;
+    border-left-color: #ffffff;
+    border-right-color: #808080;
+    border-bottom-color: #808080;
+
+    box-shadow:
+            inset 1px 1px #dfdfdf,
+            inset -1px -1px #404040;
+
+    font-family: Tahoma, sans-serif;
+    font-size: 12px;
+}
+
+/* =====================
+   TITLE
+   ===================== */
+
+.blog-list-title {
+    background: #000080;
+    color: white;
+
+    font-weight: bold;
+
+    padding: 4px 8px;
+}
+
+/* =====================
+   HEADER
+   ===================== */
+
+.blog-list-header {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+
+    background: #c0c0c0;
+
+    border-bottom: 1px solid #808080;
+
+    font-weight: bold;
+
+    padding: 6px 10px;
+}
+
+/* =====================
+   CONTENT
+   ===================== */
+
+.blog-list-content {
+    flex: 1;
+
+    overflow-y: auto;
+
+    background: white;
+}
+
+/* =====================
+   ROWS
+   ===================== */
+
+.blog-row {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+
+    align-items: center;
+
+    padding: 6px 10px;
+
+    color: black;
+    text-decoration: none;
+}
+
+.blog-row:hover {
+    background: #000080;
+    color: white;
+}
+
+.blog-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.blog-row img {
+    image-rendering: pixelated;
+}
+
+/* =====================
+   STATUS BAR
+   ===================== */
+
+.blog-list-status {
+    padding: 4px 8px;
+
+    border-top: 1px solid #808080;
+
+    background: #c0c0c0;
+}
+
+/* =========================
+   WIN95 SCROLLBAR (ADDED ONLY)
+   ========================= */
+
+.blog-list-content::-webkit-scrollbar {
+    width: 18px;
+    background: #c0c0c0;
+}
+
+.blog-list-content::-webkit-scrollbar-track {
+    background: #e3e3e3;
+
+    border-left: 2px solid #ffffff;
+    border-top: 2px solid #ffffff;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+}
+
+/* thumb */
+.blog-list-content::-webkit-scrollbar-thumb {
+    background: #c0c0c0;
+
+    border: 2px solid;
+    border-top-color: #ffffff;
+    border-left-color: #ffffff;
+    border-right-color: #808080;
+    border-bottom-color: #404040;
+
+    min-height: 40px;
+}
+
+/* hover = pressed */
+.blog-list-content::-webkit-scrollbar-thumb:hover {
+    border-top-color: #808080;
+    border-left-color: #808080;
+    border-right-color: #ffffff;
+    border-bottom-color: #ffffff;
+}
+
+/* optional arrow buttons (Win95 feel) */
+.blog-list-content::-webkit-scrollbar-button {
+    height: 16px;
+    background: #c0c0c0;
+
+    border: 2px solid;
+    border-top-color: #ffffff;
+    border-left-color: #ffffff;
+    border-right-color: #808080;
+    border-bottom-color: #808080;
+}

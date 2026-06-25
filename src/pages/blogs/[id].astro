@@ -1,0 +1,33 @@
+---
+import "../../styles/blogs/blogs.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Window from "../../components/Window.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blogs");
+
+    return posts.map((post) => ({
+        params: { id: post.id },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout>
+    <div class="blog-main">
+        <Window>
+
+            <div class="back-link">
+                <a class="back-link" href="/blogs">← back to blogs</a>
+            </div>
+
+            <div class="blog-content">
+                <Content />
+            </div>
+        </Window>
+    </div>
+</BaseLayout>
