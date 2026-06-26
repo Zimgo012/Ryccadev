@@ -4,10 +4,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Window2 from "../../components/Window2.astro";
 import { getCollection } from "astro:content";
 
-/* project collection contains projectlist.json */
 const projectFiles = await getCollection("projects");
 
-/* flatten all projects from all json files */
 const projects = projectFiles.flatMap(
     (file) => file.data.projects ?? []
 );
@@ -16,7 +14,7 @@ const projects = projectFiles.flatMap(
 <BaseLayout>
     <div class="project-list-main">
 
-        <Window2>
+        <Window2 profile="projects">
 
             <div class="project-list-content">
 
@@ -24,40 +22,51 @@ const projects = projectFiles.flatMap(
 
                         <div class="project-list-item">
 
-                            <h2>{project.name}</h2>
+                            {/* RIGHT SIDE */}
+                            <div class="project-info">
 
-                            {project.summary && (
-                                    <p>{project.summary}</p>
-                            )}
+                                <h2>{project.name}</h2>
 
-                            <br />
+                                {project.summary && (
+                                        <p>{project.summary}</p>
+                                )}
 
-                            <div class="link-section">
+                                <br />
 
-                                {project.blogLink && (
-                                        <>
+                                <div class="link-section">
+
+                                    {project.blogLink && project.blogLink !== "none" && (
                                             <a
                                                     class="blog-link"
                                                     href={project.blogLink}
                                             >
                                                 Read blog about this project
                                             </a>
+                                    )}
 
-                                            &nbsp;&nbsp;
-                                        </>
+                                    {project.projectlink && (
+                                            <a
+                                                    class="blog-link"
+                                                    href={project.projectlink}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                            >
+                                                Open Project
+                                            </a>
+                                    )}
+
+                                </div>
+
+                            </div>
+
+                            <div class="project-tech">
+                                {project.technologies?.length ? (
+                                    project.technologies.map((tech) => (
+                                            <span class="tech-badge">{tech}</span>
+                                    ))
+                                ) : (
+                                        <span class="tech-empty">No tech listed</span>
                                 )}
-
-                                {project.projectlink && (
-                                        <a
-                                                class="blog-link"
-                                                href={project.projectlink}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                        >
-                                            Open Project
-                                        </a>
-                                )}
-
                             </div>
 
                         </div>

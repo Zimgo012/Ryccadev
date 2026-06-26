@@ -1,4 +1,8 @@
-.blog-main{
+/* ============================================================
+   BLOG WRAPPER
+   ============================================================ */
+
+.blog-main {
     position: relative;
     margin-top: 100px;
     width: 100%;
@@ -6,19 +10,17 @@
     height: 85vh;
     padding: 20px;
     overflow: auto;
-
-    /*border-color: #0d0e0f;*/
-    /*border-width: 20px;*/
 }
 
-.blog-content{
+.blog-content {
     height: 85vh;
     padding: 25px;
+
     display: flex;
     flex-direction: column;
     gap: 20px;
-    overflow-y: auto;
 
+    overflow-y: auto;
 
     background: var(--ml-bg);
     border: 4px solid;
@@ -26,42 +28,124 @@
     border-left-color: var(--ml-border-4);
     border-bottom-color: var(--ml-border-1);
     border-right-color: var(--ml-border-2);
-
 }
 
-.blog-item{
-    background: var(--ml-surface-container);
-    padding: 20px;
+/* ============================================================
+   BLOG ROW (MATCH PROJECT STYLE)
+   ============================================================ */
 
+.blog-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+
+    padding: 18px;
+
+    background: var(--ml-surface-container);
 }
 
-.blog-link{
+/* LEFT SIDE */
+.blog-info {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.blog-info h2 {
+    font-size: 16px;
+    margin: 0;
+}
+
+.blog-info p {
+    font-size: 13px;
+    opacity: 0.85;
+}
+
+/* META (author/date) */
+.blog-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+/* ============================================================
+   READ MORE BUTTON (FIXED WIDTH ISSUE)
+   ============================================================ */
+
+.link-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.blog-link {
+    display: inline-flex;     /* IMPORTANT */
+    width: fit-content;       /* prevents stretching */
+    align-items: center;
+
+    padding: 6px 10px;
+
     background: var(--ml-surface-container);
+
     border: 3px solid var(--ml-border-1);
     border-right-color: var(--ml-border-4);
     border-bottom-color: var(--ml-border-3);
     border-left-color: var(--ml-border-2);
+
+    font-size: 12px;
+    text-decoration: none;
+    color: var(--ml-on-surface);
+
+    white-space: nowrap;      /* prevents long stretch */
 }
 
 .blog-link:hover {
     background: var(--ml-button);
     color: white;
-    /*transform: translateX(2px);*/
 }
 
-/* ---------------- ACTIVE / SELECTED ---------------- */
-.blog-link.active {
-    background: var(--ml-button);
-    color: white;
-    outline: 1px dotted #ffffff;
-    outline-offset: -3px;
+/* ============================================================
+   TAGS (RIGHT SIDE LIKE PROJECTS)
+   ============================================================ */
+
+.blog-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+    gap: 6px;
+
+    min-width: 140px;
+    max-width: 35%;
 }
 
-@media (max-width: 320px) {
+.blog-tag {
+    font-size: 11px;
+    padding: 4px 8px;
 
-    .blog-main{
-        padding: 20px;
-        margin-top: 40px;
+    white-space: nowrap;
+
+    background: var(--ml-surface-container-high);
+
+    border: 1px dotted #fff;
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+    .blog-item {
+        flex-direction: column;
     }
 
+    .blog-tags {
+        justify-content: flex-start;
+        max-width: 100%;
+    }
 }

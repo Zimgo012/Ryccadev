@@ -90,6 +90,8 @@ const { collections } = Astro.props;
                     <span>${project.name}</span>
                 `;
 
+                console.log(project);
+
                 div.addEventListener("click", () => {
 
                     setActive(div);
@@ -97,49 +99,61 @@ const { collections } = Astro.props;
                     showPreview(
                         project.name,
                         `
-                        <div class="title">
-                            <h2>${project.name}</h2>
-                        </div>
+    <div class="title">
+        <h2>${project.name}</h2>
+    </div>
 
-                        <br/>
+    <br/>
 
-                        <p>${project.summary ?? ""}</p>
+    <p>${project.summary ?? ""}</p>
 
-                        <br/>
+    ${
+                            project.technologies?.length
+                                ? `
+            <br/>
 
-                        <div class="prev-links">
+            <div class="tech-section">
+                <div class="tech-list">
+                    ${project.technologies
+                                    .map(
+                                        tech => `<span class="tech-badge">${tech}</span>`
+                                    )
+                                    .join("")}
+                </div>
+            </div>
+            `
+                                : ""
+                        }
 
-                            ${
+    <br/>
+
+    <div class="prev-links">
+        ${
                             project.projectlink
                                 ? `
-                                <p>
-                                    <a
-                                        href="${project.projectlink}"
-                                        target="_blank"
-                                        class="link-item">
-                                        Open Project
-                                    </a>
-                                </p>
-                                `
+                <a
+                    href="${project.projectlink}"
+                    target="_blank"
+                    class="link-item">
+                    Open Project
+                </a>
+                `
                                 : ""
                         }
 
-                            ${
-                            project.blogLink
+        ${
+                            project.blogLink && project.blogLink !== "none"
                                 ? `
-                                <p>
-                                    <a
-                                        href="${project.blogLink}"
-                                        class="link-item">
-                                        Project Blog
-                                    </a>
-                                </p>
-                                `
+                <a
+                    href="${project.blogLink}"
+                    class="link-item">
+                    Project Blog
+                </a>
+                `
                                 : ""
                         }
-
-                        </div>
-                        `,
+    </div>
+    `,
                         div
                     );
                 });
@@ -193,15 +207,34 @@ const { collections } = Astro.props;
                         <h2>${title}</h2>
                     </div>
 
-                    <br/>
-
+                
+                    
                     ${data.summary ? `<p>${data.summary}</p>` : ""}
-
                     <br/>
-
+                    
                     ${data.author
                         ? `<p><strong>Author:</strong> ${data.author}</p>`
                         : ""
+                    }
+                    ${data.date ? `<p> <strong>Date published: </strong>${data.date}</p>` : ""}
+                    <br/>
+                    ${
+                        data.tags?.length
+                            ? `
+        <div class="tags-section">
+
+            <div class="tags-list">
+                ${data.tags
+                                .map(
+                                    (tag) => `<span class="tag-badge">${tag}</span>`
+                                )
+                                .join("")}
+            </div>
+        </div>
+
+        <br/>
+        `
+                            : ""
                     }
 
                     <div class="prev-links">

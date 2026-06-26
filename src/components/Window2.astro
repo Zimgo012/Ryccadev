@@ -1,11 +1,12 @@
 ---
 import "../styles/window2.css";
+const {profile} = Astro.props
 ---
 
 <div class="blog-list-window">
 
     <div class="blog-list-title">
-        C:/rycca/blogs
+        <span>\rycca\{profile ? profile : "NAN"}</span>
     </div>
 
     <div class="blog-list-header">

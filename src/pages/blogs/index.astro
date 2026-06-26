@@ -4,32 +4,45 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Window2 from "../../components/Window2.astro";
 import { getCollection } from "astro:content";
 
-/* get ALL markdown files in src/content/md/blogs */
 const posts = await getCollection("blogs");
 ---
 
 <BaseLayout>
     <div class="blog-main">
-        <Window2>
+        <Window2 profile="blogs">
             <div class="blog-content">
 
                 {posts.map((post) => (
                         <div class="blog-item">
-                            <h2>{post.data.title}</h2>
-                            {post.data.summary && (
-                                    <p>{post.data.summary}</p>
-                            )}
 
-                            {post.data.author && (
-                                    <small>By {post.data.author}</small>
-                            )}
-                            <br/>
-                            <br/>
-                            <a class="blog-link" href={`/blogs/${post.id}`}>
-                                Read more
-                            </a>
+                            <!-- LEFT -->
+                            <div class="blog-info">
+                                <h2>{post.data.title}</h2>
+
+                                <p>{post.data.summary}</p>
+
+                                <div class="blog-meta">
+                                    <span>{post.data.author}</span>
+                                    <span>{post.data.date}</span>
+                                </div>
+
+                                <a class="blog-link" href={`/blogs/${post.id}`}>
+                                    Read more
+                                </a>
+                            </div>
+
+                            <!-- RIGHT -->
+                            <div class="blog-tags">
+                                {post.data.tags?.length ? (
+                                    post.data.tags.map((tag) => (
+                                            <span class="blog-tag">{tag}</span>
+                                    ))
+                                ) : (
+                                        <span class="blog-tag-empty">No tags</span>
+                                )}
+                            </div>
+
                         </div>
-
                 ))}
 
             </div>

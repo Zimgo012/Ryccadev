@@ -12,7 +12,8 @@ const projects = defineCollection({
                 name: z.string(),
                 summary: z.string(),
                 projectlink: z.string(),
-                blogLink: z.string()
+                blogLink: z.string(),
+                technologies: z.array(z.string()),
             })
         )
     })
@@ -24,6 +25,8 @@ const blogs = defineCollection({
         title: z.string(),
         summary: z.string(),
         author: z.string(),
+        date: z.string(),
+        tags: z.array(z.string()),
 
     })
 })

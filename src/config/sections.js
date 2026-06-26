@@ -1,14 +1,14 @@
 export const sections = {
     projects: {
         label: "Projects",
-        icon: "/w2k-programs.ico",
+        icon: "/icons/w2k-programs.ico",
         collection: "projects",
         template: "projectPreview"
     },
 
     blogs: {
         label: "Blogs",
-        icon: "/w95_64.ico",
+        icon: "/icons/w95_64.ico",
         collection: "blogs",
         template: "blogPreview"
     },
