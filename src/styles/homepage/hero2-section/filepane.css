@@ -1,7 +1,7 @@
 .file-pane {
-    width: 100%;
+    width: 80vh;
     height: 100%;
-    min-width: 0;
+    /*min-width: 0;*/
 
     min-height: 400px;
     box-sizing: border-box;
@@ -89,6 +89,7 @@
 @media (max-width: 1024px) {
     .file-pane {
         grid-template-columns: repeat(2, 1fr);
+        width: 70vh;
     }
 
     .file-item {
@@ -107,11 +108,18 @@
     }
 }
 
+@media (max-width: 640px) {
+   .file-pane{
+       width: 40vh;
+   }
+
+}
+
 @media (max-width: 320px) {
     .file-pane {
         grid-template-columns: 1fr;
-
         min-height: 200px;
+        width: 30vh;
 
         gap: 6px;
         padding: 8px;

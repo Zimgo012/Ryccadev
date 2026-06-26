@@ -1,34 +1,26 @@
-.directory{
+.directory {
     display: flex;
     flex-direction: column;
     font-family: 'Hanken Grotesk', system-ui, sans-serif;
-
-    margin-top: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
-
-
+    margin: 20px 10px;
 }
 
+/* ================= HEADER TABS ================= */
 
 .directory-header {
     display: flex;
-    align-items: center;
-    justify-content: left;
-    gap: 2px;
-    font-size: 10px;
-
-    /*border-color: #00ff41;*/
-    /*border-width: 5px;*/
-
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    flex-wrap: wrap;
+    gap: 4px;
 }
 
 .directory-button {
+    padding: 6px 12px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
     color: var(--ml-on-surface);
     background: var(--ml-bg);
-    width: 100px;
 
     border: 2px solid;
     border-top-color: var(--ml-border-1);
@@ -36,63 +28,33 @@
     border-bottom-color: var(--ml-border-3);
     border-right-color: var(--ml-border-4);
 
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-
-
-}.directory-button.active {
-     background: var(--ml-button);
-     color: white;
-     outline: 1px dotted #ffffff;
-     outline-offset: -3px;
- }
+    cursor: pointer;
+    transition: 0.15s ease;
+}
 
 .directory-button:hover {
     background: var(--ml-button);
     color: white;
-    border: 1px dotted #ffffff;
-    transform: translateX(2px);
+    border: 1px dotted #fff;
 }
 
-
-.directory-panel {
-    display: none;
+.directory-button.active {
+    background: var(--ml-button);
+    color: white;
+    outline: 1px dotted #fff;
+    outline-offset: -3px;
 }
 
-.directory-panel.active {
-    display: block;
-}
-.directory-panel {
-    display: none;
-}
+/* ================= CONTENT WINDOW ================= */
 
-.directory-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.directory-content {
+    margin-top: 10px;
+    padding: 16px;
 
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-
-    font-size: 13px;
-
-
-    letter-spacing: 0.08em;
-}
-
-.directory-list li {
-    line-height: 1.2;
-}
-
-.directory-content{
     height: 40vh;
-    padding: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
 
-    /*border-color: #ffe037;*/
-    /*border-width: 10px;*/
     background: var(--ml-bg);
     border: 4px solid;
     border-top-color: var(--ml-border-3);
@@ -105,7 +67,181 @@
             inset -1px -1px 0 #fdf9ee;
 }
 
+/* ================= PANELS ================= */
 
-/* ---------------- HOVER ---------------- */
+.directory-panel {
+    display: none;
+}
 
+.directory-panel.active {
+    display: block;
+}
 
+/* ================= LIST ================= */
+
+.directory-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    font-size: 13px;
+}
+
+/* ============================================================
+   EXPERIENCE ITEM
+   ============================================================ */
+
+.directory-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "top top"
+        "details details";
+
+    gap: 6px;
+    padding: 10px 0;
+
+    border-bottom: 1px dashed rgba(255,255,255,0.12);
+}
+
+/* header row */
+.item-header {
+    grid-area: top;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+/* left side (role + company) */
+.item-header .left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.role {
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.company {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* date */
+.date {
+    font-size: 11px;
+    opacity: 0.7;
+    white-space: nowrap;
+}
+
+/* details */
+.item-details {
+    grid-area: details;
+    margin-left: 16px;
+    padding-left: 12px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    font-size: 12px;
+    opacity: 0.75;
+}
+
+/* ============================================================
+   EDUCATION ITEM
+   (same layout but simpler)
+   ============================================================ */
+
+.education-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(255,255,255,0.12);
+}
+
+.education-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.education-program {
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.education-school {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.education-date {
+    font-size: 11px;
+    opacity: 0.7;
+    white-space: nowrap;
+}
+
+/* ============================================================
+   STACK
+   ============================================================ */
+
+.stack-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.stack-list li {
+    padding: 6px 10px;
+    font-size: 12px;
+
+    background: var(--ml-surface-container);
+    border: 2px solid var(--ml-border-2);
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 640px) {
+
+    .directory-content {
+        height: auto;
+        max-height: 55vh;
+    }
+
+    .item-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .date {
+        align-self: flex-start;
+    }
+
+    .item-details {
+        margin-left: 0;
+        padding-left: 10px;
+    }
+
+    .education-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .education-date {
+        margin-top: 4px;
+    }
+}

@@ -2,13 +2,15 @@
 import "../../styles/homepage/directory.css";
 
 const tabs = [
-    { id: "experience", label: "EXPERIENCE" },
-    { id: "stack", label: "TECH STACK" },
-    { id: "tech", label: "TECH" }
+    { id: "experience", label: "Experience" },
+    { id: "education", label: "Education" },
+    { id: "stack", label: "Tech Stack" }
 ];
 ---
 
 <div class="directory">
+
+    <!-- ================= HEADER TABS ================= -->
     <div class="directory-header">
         {tabs.map((tab, index) => (
                 <button
@@ -20,34 +22,103 @@ const tabs = [
         ))}
     </div>
 
+    <!-- ================= CONTENT WINDOW ================= -->
     <div class="directory-content">
+
+        <!-- ================= EXPERIENCE ================= -->
         <div class="directory-panel active" data-panel="experience">
+
             <ul class="directory-list">
-                <li><span>2019:</span> Started programming</li>
-                <li><span>2021:</span> The Glitch Era</li>
-                <li><span>2023:</span> V3 Refactor</li>
+
+
+                <li class="directory-item">
+                    <div class="item-header">
+                        <div class="left">
+                            <span class="role">Research Assistant</span>
+                            <span class="company">Algonquin College</span>
+                        </div>
+
+                        <span class="date">Jan 2026 – Apr 2026</span>
+                    </div>
+
+                    <ul class="item-details">
+                        <li>Developed an AI-powered presentation agent in Python on AWS </li>
+                        <li>Orchestrated 6–8 agent workflows using AWS Lambda and event-driven architecture</li>
+                    </ul>
+                </li>
+
+
+                <li class="directory-item">
+                    <div class="item-header">
+                        <div class="left">
+                            <span class="role">Software Developer Intern</span>
+                            <span class="company">Intelligent Innovation Lab</span>
+                        </div>
+
+                        <span class="date">Jan 2025 – Apr 2025</span>
+                    </div>
+
+                    <ul class="item-details">
+                        <li>Contributed to system architecture decisions defining data models, API design, and backend scalability</li>
+                        <li>Worked with a senior engineer to build event-driven automation</li>
+                    </ul>
+                </li>
+
             </ul>
         </div>
 
+        <!-- ================= EDUCATION ================= -->
+        <div class="directory-panel" data-panel="education">
+
+            <ul class="directory-list">
+
+
+                <li class="directory-item">
+                    <div class="item-header">
+                        <div class="left">
+                            <span class="role">B.Tech Software Engineering</span>
+                            <span class="company">McMaster University</span>
+                        </div>
+
+                        <span class="date">Starting September 2026 </span>
+                    </div>
+                </li>
+
+                <li class="directory-item">
+                    <div class="item-header">
+                        <div class="left">
+                            <span class="role">Computer Engineering Technology</span>
+                            <span class="company">Algonquin College</span>
+                        </div>
+
+                        <span class="date">January 2024 – June 2026</span>
+                    </div>
+                </li>
+
+
+            </ul>
+        </div>
+
+        <!-- ================= TECH STACK ================= -->
         <div class="directory-panel" data-panel="stack">
+
             <ul class="directory-list">
-                <li>Astro</li>
+                <li>Java</li>
                 <li>Spring Boot</li>
-                <li>PostgreSQL</li>
+                <li>JavaScript</li>
+                <li>HTML / CSS</li>
+                <li>C / C++</li>
+                <li>SQL</li>
+                <li>Git</li>
                 <li>Docker</li>
+                <li>AWS</li>
+                <li>Azure</li>
             </ul>
+
         </div>
 
-        <div class="directory-panel" data-panel="tech">
-            <ul class="directory-list">
-                <li>WebSockets</li>
-                <li>Collaborative Editing</li>
-                <li>System Design</li>
-            </ul>
-        </div>
     </div>
 </div>
-
 <script>
     const buttons = document.querySelectorAll(".directory-button");
     const panels = document.querySelectorAll(".directory-panel");

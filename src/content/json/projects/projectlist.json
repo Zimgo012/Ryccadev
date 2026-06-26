@@ -1,16 +1,31 @@
 {
   "projects": [
     {
-      "name": "The Future of AI Collaboration",
-      "summary": "An insightful look into how adaptive AI models are transforming the modern workspace and boosting team productivity.",
-      "projectlink": "https://github.com/Zimgo012/Springboot-React-Fullstack",
-      "blogLink": "/blogs/future-collaboration"
+      "name": "Q Booking App",
+      "summary": "An all-in-one booking solution designed for modern businesses",
+      "projectlink": "https://github.com/Zimgo012/QBookingAppRevamp",
+      "blogLink": "none"
     },
+
     {
-      "name": "The Future of AI Collaboration",
-      "summary": "An insightful look into how adaptive AI models are transforming the modern workspace and boosting team productivity.",
+      "name": "Crazy Eights",
+      "summary": "A JavaFX application implementing the Crazy Eights card game.",
+      "projectlink": "https://github.com/Zimgo012/CrazyEight",
+      "blogLink": "none"
+    },
+
+    {
+      "name": "Montery",
+      "summary": "A basic Spring boot web app,",
       "projectlink": "https://github.com/Zimgo012/Springboot-React-Fullstack",
-      "blogLink": "/blogs/future-collaboration"
+      "blogLink": "none"
+    },
+
+    {
+      "name": "NoteLang",
+      "summary": "A Domain Specific Language Proposal",
+      "projectlink": "https://github.com/Zimgo012/NoteLang",
+      "blogLink": "none"
     }
 
   ]

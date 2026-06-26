@@ -6,6 +6,46 @@
     padding: 20px;
 }
 
+.biography-content a {
+        color: #0b66c3;
+        text-decoration: underline;
+}
+
+.biography-content blockquote {
+    margin: 20px 0;
+    padding: 14px 18px;
+
+    background: var(--ml-surface-container);
+
+    border-left: 5px solid var(--ml-secondary);
+    border-top: 2px solid var(--ml-border-1);
+    border-left-color: var(--ml-secondary);
+    border-right: 2px solid var(--ml-border-4);
+    border-bottom: 2px solid var(--ml-border-3);
+
+    color: var(--ml-on-surface-variant);
+
+    font-style: italic;
+    line-height: 1.7;
+
+    box-shadow:
+            inset 1px 1px 0 #404847,
+            inset -1px -1px 0 #fdf9ee;
+}
+
+.biography-content blockquote::before {
+    content: "❝";
+    color: var(--ml-secondary);
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-right: 8px;
+    vertical-align: top;
+}
+
+.biography-content blockquote p:last-child {
+    margin-bottom: 0;
+}
+
 .biography-content > * {
     min-width: 0;
 }
