@@ -3,6 +3,7 @@ import '../../styles/projects/projectlist.css'
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Window2 from "../../components/Window2.astro";
 import { getCollection } from "astro:content";
+import {ROUTES} from "../../config/routes";
 
 const projectFiles = await getCollection("projects");
 
@@ -38,7 +39,7 @@ const projects = projectFiles.flatMap(
                                     {project.blogLink && project.blogLink !== "none" && (
                                             <a
                                                     class="blog-link"
-                                                    href={project.blogLink}
+                                                    href={ROUTES.blogs + "/" + project.blogLink}
                                             >
                                                 Read blog about this project
                                             </a>

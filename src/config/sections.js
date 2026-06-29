@@ -1,14 +1,16 @@
+import {ROUTES} from './routes.js';
+
 export const sections = {
     projects: {
         label: "Projects",
-        icon: "/icons/w2k-programs.ico",
+        icon: ROUTES.home +  "icons/w2k-programs.ico",
         collection: "projects",
         template: "projectPreview"
     },
 
     blogs: {
         label: "Blogs",
-        icon: "/icons/w95_64.ico",
+        icon: ROUTES.home + "icons/w95_64.ico",
         collection: "blogs",
         template: "blogPreview"
     },

@@ -3,6 +3,7 @@ import "../../styles/blogs/blogs.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Window2 from "../../components/Window2.astro";
 import { getCollection, render } from "astro:content";
+import { ROUTES } from "../../config/routes";
 
 export async function getStaticPaths() {
     const posts = await getCollection("blogs");
@@ -22,7 +23,7 @@ const { Content } = await render(post);
         <Window2 profile={`${post.id}`}>
 
             <div class="back-link">
-                <a class="back-link" href="/blogs">← back to blogs</a>
+                <a class="back-link" href={ROUTES.blogs}>← back to blogs</a>
             </div>
 
             <div class="blog-content">

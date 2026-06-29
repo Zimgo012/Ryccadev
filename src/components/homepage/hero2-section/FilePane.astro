@@ -1,13 +1,13 @@
 ---
 import "../../../styles/homepage/hero2-section/filepane.css";
 import { sections } from "../../../config/sections";
-
+import {ROUTES} from "../../../config/routes";
 const { collections } = Astro.props;
 ---
 
 <div class="file-pane" id="filePane"></div>
 
-<script define:vars={{ collections, sections }}>
+<script define:vars={{ collections, sections, ROUTES }}>
 
     const filePane = document.getElementById("filePane");
 
@@ -145,7 +145,7 @@ const { collections } = Astro.props;
                             project.blogLink && project.blogLink !== "none"
                                 ? `
                 <a
-                    href="${project.blogLink}"
+                    href="${ROUTES.blogs}/${project.blogLink}"
                     class="link-item">
                     Project Blog
                 </a>
@@ -240,7 +240,7 @@ const { collections } = Astro.props;
                     <div class="prev-links">
                         <p>
                             <a
-                                href="/blogs/${file.id}"
+                                href="${ROUTES.blogs}/${file.id}"
                                 class="link-item">
                                 Read Blog
                             </a>

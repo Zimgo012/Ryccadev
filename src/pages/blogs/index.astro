@@ -3,6 +3,7 @@ import '../../styles/blogs/bloglist.css'
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Window2 from "../../components/Window2.astro";
 import { getCollection } from "astro:content";
+import { ROUTES } from '../../config/routes';
 
 const posts = await getCollection("blogs");
 ---
@@ -26,11 +27,10 @@ const posts = await getCollection("blogs");
                                     <span>{post.data.date}</span>
                                 </div>
 
-                                <a class="blog-link" href={`/blogs/${post.id}`}>
+                                <a class="blog-link" href={`${ROUTES.blogs}/${post.id}`}>
                                     Read more
                                 </a>
                             </div>
-
                             <!-- RIGHT -->
                             <div class="blog-tags">
                                 {post.data.tags?.length ? (

@@ -1,5 +1,6 @@
 ---
 import "../styles/error/500.css";
+import {ROUTES} from "../config/routes";
 ---
 
 <div class="error500">
@@ -26,7 +27,7 @@ import "../styles/error/500.css";
 
             <br />
 
-            <a class="btn500" href="/">Return to safety</a>
+            <a class="btn500" href={ROUTES.home}>Return to safety</a>
 
         </div>
 

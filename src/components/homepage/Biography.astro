@@ -1,7 +1,7 @@
 ---
 import "../../styles/homepage/biography.css"
 import DoubleArrow from "../DoubleArrow.astro";
-import ImagePlaceHolder from "../ImagePlaceholder.astro";
+import {ROUTES} from "../../config/routes"
 ---
 
 
@@ -24,7 +24,7 @@ import ImagePlaceHolder from "../ImagePlaceholder.astro";
 
                 <blockquote>Think twice, ship once, and debug multiple times.</blockquote>
 
-            </p>
+
         </div>
         <br/>
         <div>
@@ -33,20 +33,18 @@ import ImagePlaceHolder from "../ImagePlaceholder.astro";
             <br>
 
             <div class="contact">
-                <div class="contact-items"> <img src="/icons/linkedin.ico"/>
+                <div class="contact-items"> <img src=`${ROUTES.home}icons/linkedin.ico`/>
                     <a href="https://www.linkedin.com/in/ryccabel">LinkedIn</a></div>
 
                 <div class="contact-items">
-                    <img src="/icons/github.ico"/>
+                    <img src=`${ROUTES.home}icons/github.ico`/>
                     <a href="https://github.com/Zimgo012">Github</a>
                 </div>
 
                 <div class="contact-items">
-                    <img src="/icons/Mail_Bar.png" width="30"/>
+                    <img src={`${ROUTES.home}icons/Mail_Bar.png`} width="30"/>
                     <a href="mailto:belcinajohnrycca@gmail.com">Email: belcinajohnrycca@gmail.com</a>
                 </div>
-
-
 
             </div>
 

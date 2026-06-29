@@ -1,13 +1,15 @@
 ---
 import "../styles/navbar.css"
+
+import {ROUTES} from "../config/routes"
 ---
 
 <nav class="nav" id="nav">
-    <a href="#hero" class="nav-logo mono">RYCCA.DEV</a>
+    <a href={ROUTES.home} class="nav-logo mono">RYCCA.DEV</a>
     <div class="nav-links">
-        <a href="/" class="nav-link mono">Home</a>
-        <a href="/projects" class="nav-link mono">Projects</a>
-        <a href="/blogs" class="nav-link mono">Blogs</a>
+        <a href={ROUTES.home} class="nav-link mono">Home</a>
+        <a href={ROUTES.projects} class="nav-link mono">Projects</a>
+        <a href={ROUTES.blogs} class="nav-link mono">Blogs</a>
     </div>
 
     <div class="nav-right-side">
