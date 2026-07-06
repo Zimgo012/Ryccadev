@@ -33,7 +33,7 @@
     min-width: 0;
 }
 
-@media (max-width: 640px){
+@media (max-width: 920px){
     .inside-content {
         grid-template-columns: 140px 1fr;
 
@@ -41,7 +41,7 @@
 }
 
 
-@media (max-width: 320px) {
+@media (max-width: 420px) {
 
     /* =====================
        HERO

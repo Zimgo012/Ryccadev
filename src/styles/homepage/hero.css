@@ -33,7 +33,7 @@
     min-width: 0;
 }
 
-@media(max-width: 1024px) {
+@media(max-width: 1032px) {
 
     .hero-content {
         gap: 5px; /* reduced spacing */
@@ -47,6 +47,7 @@
         padding: 16px;
     }
 }
+
 @media (max-width: 920px) {
 
     .hero-content {
@@ -59,7 +60,7 @@
     }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 420px) {
 
     .hero{
         padding: 0;

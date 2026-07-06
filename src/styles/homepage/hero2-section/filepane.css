@@ -108,14 +108,14 @@
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 920px) {
    .file-pane{
        width: 40vh;
    }
 
 }
 
-@media (max-width: 320px) {
+@media (max-width: 420px) {
     .file-pane {
         grid-template-columns: 1fr;
         min-height: 200px;
