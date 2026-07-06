@@ -45,7 +45,7 @@
 }
 
 
-@media (max-width: 640px){
+@media (max-width: 920px){
     .item {
         gap: 2px;
         padding: 1px 3px;

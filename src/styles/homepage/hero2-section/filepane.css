@@ -108,7 +108,7 @@
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 920px) {
    .file-pane{
        width: 40vh;
    }

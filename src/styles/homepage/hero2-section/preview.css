@@ -167,7 +167,7 @@
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 920px) {
     .preview-window {
         width: 220px;   /* tablet size */
     }
