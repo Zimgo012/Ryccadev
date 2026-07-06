@@ -47,7 +47,7 @@
         padding: 16px;
     }
 }
-@media (max-width: 920px) {
+@media (max-width: 640px) {
 
     .hero-content {
         grid-template-columns: 1fr;

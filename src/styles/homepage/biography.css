@@ -94,6 +94,12 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
 }
+.contact-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
 
 .contact-items {
     display: flex;
@@ -123,6 +129,15 @@
         color: var(--ml-secondary);
     }
 
+}
+
+@media (max-width: 640px) {
+    .contact {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
 }
 
 @media (max-width: 420px) {
