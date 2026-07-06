@@ -54,7 +54,7 @@
     }
 }
 
-@media (max-width: 320px){
+@media (max-width: 420px){
     .content {
         padding: 8px;
         gap: 6px;

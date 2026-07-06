@@ -115,7 +115,7 @@
 
 }
 
-@media (max-width: 320px) {
+@media (max-width: 420px) {
     .file-pane {
         grid-template-columns: 1fr;
         min-height: 200px;
