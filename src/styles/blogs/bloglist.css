@@ -149,3 +149,21 @@
         max-width: 100%;
     }
 }
+
+@media (max-width: 420px) {
+
+    .blog-main {
+        padding: 12px;
+        margin-top: 60px;
+    }
+
+    .blog-link {
+        display: block;
+        width: 100%;
+    }
+
+    .tech-badge {
+        font-size: 10px;
+    }
+}
+

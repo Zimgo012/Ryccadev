@@ -4,8 +4,8 @@
    DESIGN TOKENS (Tailwind bridge)
    ============================================================ */
 @theme {
-  --font-sans: 'Hanken Grotesk, system-ui, sans-serif';
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Tahoma', 'MS Sans Serif', Arial, sans-serif;
+  --font-mono: 'Courier New', 'Lucida Console', monospace;
 
   /* ============================================================
      SEMANTIC COLOR MAPPING (Tailwind)
@@ -47,6 +47,7 @@
   --ml-surface: #131313;
   --ml-surface-dim: #0e0e0e;
   --ml-surface-bright: #d3d3d3;
+  --ml-page-bg : #018281;
 
   --ml-surface-container: #20201f;
   --ml-surface-container-high: #2a2a2a;
@@ -99,6 +100,8 @@
   --ml-surface: #fdf9ee;
   --ml-surface-dim: #dedacf;
   --ml-surface-bright: #ffffff;
+  --ml-page-bg : #11b0b0;
+
 
   --ml-surface-container: #f2eee2;
   --ml-surface-container-high: #ece8dd;
@@ -154,7 +157,7 @@
 html {
     font-family: var(--font-sans);
     background: var(--ml-bg);
-  color: var(--ml-on-surface);
+    color: var(--ml-on-surface);
 }
 
 body {
@@ -162,94 +165,11 @@ body {
   overflow-x: hidden;
 }
 
-/* ============================================================
-   1970s PSYCHEDELIC FLUID WAVE PATTERN (FLAT VECTOR)
-   ============================================================ */
-/* ============================================================
-   1970s PSYCHEDELIC FLUID WAVE PATTERN (FIXED & LIGHTWEIGHT)
-   ============================================================ */
-
-body::before {
-    content: "";
-    position: fixed;
-    /* Make the background layer larger than the viewport so we can move it safely */
-    top: -10%;
-    left: -10%;
-    width: 120%;
-    height: 120%;
-    z-index: -2;
-    pointer-events: none;
-
-    /* Keep your exact gradients here */
-    background-image:
-            radial-gradient(ellipse at 8% 12%, var(--ml-primary-container) 0 10%, transparent 18%),
-            radial-gradient(ellipse at 18% 20%, var(--ml-primary-container) 0 8%, transparent 16%),
-            radial-gradient(ellipse at 28% 28%, var(--ml-primary-container) 0 12%, transparent 20%),
-            radial-gradient(ellipse at 35% 60%, var(--ml-secondary) 0 14%, transparent 22%),
-            radial-gradient(ellipse at 42% 68%, var(--ml-secondary) 0 10%, transparent 18%),
-            radial-gradient(ellipse at 50% 76%, var(--ml-secondary) 0 16%, transparent 24%),
-            radial-gradient(ellipse at 55% 30%, var(--ml-tertiary) 0 12%, transparent 20%),
-            radial-gradient(ellipse at 62% 38%, var(--ml-tertiary) 0 10%, transparent 18%),
-            radial-gradient(ellipse at 70% 46%, var(--ml-tertiary) 0 14%, transparent 22%),
-            radial-gradient(ellipse at 72% 62%, var(--ml-primary) 0 16%, transparent 24%),
-            radial-gradient(ellipse at 80% 70%, var(--ml-primary) 0 12%, transparent 20%),
-            radial-gradient(ellipse at 88% 78%, var(--ml-primary) 0 14%, transparent 22%),
-            radial-gradient(ellipse at 92% 14%, var(--ml-outline-variant) 0 10%, transparent 18%),
-            radial-gradient(ellipse at 96% 22%, var(--ml-outline-variant) 0 8%, transparent 14%);
-
-    filter: contrast(1.1) saturate(6);
-    background-size: 100% 100%; /* Do not animate this size */
-    background-repeat: repeat;
-
-    /* FIX: Forces the browser to handle this layer on the GPU */
-    will-change: transform;
-    /* FIX: Use transform instead of background-size for the animation */
-    animation: liquidBreath 12s ease-in-out infinite alternate;
-}
-
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-
-    background:
-            repeating-linear-gradient(
-                    to bottom,
-                    rgba(0, 0, 0, 0.06) 0px,
-                    rgba(0, 0, 0, 0.06) 1px,
-                    transparent 2px,
-                    transparent 4px
-            ),
-            repeating-linear-gradient(
-                    90deg,
-                    rgba(255, 255, 255, 0.03) 0px,
-                    rgba(255, 255, 255, 0.03) 1px,
-                    transparent 3px,
-                    transparent 6px
-            );
-
-    /* REMOVED mix-blend-mode: overlay; -> Blend modes on animated elements are highly expensive */
-    opacity: 0.15; /* Adjusted opacity directly instead of using overlay */
-
-    will-change: transform;
-
-}
-
-
-/* ============================================================
-   OPTIMIZED KEYFRAMES (Using Hardware-Accelerated Transforms)
-   ============================================================ */
-
-@keyframes liquidBreath {
-    0% {
-        transform: translate(0, 0) scale(1);
+    html, body {
+        background: var(--ml-page-bg);
     }
-    100% {
-        transform: translate(2%, 2%) scale(1.05); /* Simulates the wave breathing smoothly */
-    }
-}
+
+
 
 
 
@@ -329,18 +249,9 @@ button:active {
 
 @media (max-width: 420px) {
 
-    html, body {
-        background: var(--ml-on-surface-variant);
-    }
 
     body {
         overflow-x: hidden;
-    }
-
-    body::before,
-    body::after {
-        display: none !important;
-        opacity: 0 !important;
     }
 
     .container {

@@ -64,10 +64,10 @@
 
     border: 1px solid transparent;
     cursor: pointer;
-
     user-select: none;
 
-    /*transition: background 0.15s ease, border 0.15s ease, transform 0.1s ease;*/
+    font-family: 'Tahoma', 'MS Sans Serif', Arial, sans-serif;
+    font-size: 14px;
 }
 
 /* ---------------- HOVER ---------------- */

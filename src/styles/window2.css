@@ -59,7 +59,7 @@
 
     overflow-y: auto;
 
-    background: white;
+    background: var(--ml-bg);
 }
 
 /* =====================
@@ -103,55 +103,4 @@
     border-top: 1px solid #808080;
 
     background: #c0c0c0;
-}
-
-/* =========================
-   WIN95 SCROLLBAR (ADDED ONLY)
-   ========================= */
-
-.blog-list-content::-webkit-scrollbar {
-    width: 18px;
-    background: #c0c0c0;
-}
-
-.blog-list-content::-webkit-scrollbar-track {
-    background: #e3e3e3;
-
-    border-left: 2px solid #ffffff;
-    border-top: 2px solid #ffffff;
-    border-right: 2px solid #808080;
-    border-bottom: 2px solid #808080;
-}
-
-/* thumb */
-.blog-list-content::-webkit-scrollbar-thumb {
-    background: #c0c0c0;
-
-    border: 2px solid;
-    border-top-color: #ffffff;
-    border-left-color: #ffffff;
-    border-right-color: #808080;
-    border-bottom-color: #404040;
-
-    min-height: 40px;
-}
-
-/* hover = pressed */
-.blog-list-content::-webkit-scrollbar-thumb:hover {
-    border-top-color: #808080;
-    border-left-color: #808080;
-    border-right-color: #ffffff;
-    border-bottom-color: #ffffff;
-}
-
-/* optional arrow buttons (Win95 feel) */
-.blog-list-content::-webkit-scrollbar-button {
-    height: 16px;
-    background: #c0c0c0;
-
-    border: 2px solid;
-    border-top-color: #ffffff;
-    border-left-color: #ffffff;
-    border-right-color: #808080;
-    border-bottom-color: #808080;
 }
