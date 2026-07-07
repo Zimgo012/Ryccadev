@@ -15,20 +15,120 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
----
 
+const { Content, headings } = await render(post);
+
+const toc = headings.filter(
+    (heading) => heading.depth <= 3
+);
+---
 <BaseLayout webtitle={`${post.id}`}>
+
     <div class="blog-main">
+
         <Window2 profile={`${post.id}`}>
 
-            <div class="back-link">
-                <a class="back-link" href={ROUTES.blogs}>← back to blogs</a>
+            <div  id="top" class="back-link">
+                <a class="back-link" href={ROUTES.blogs}>
+                    ← back to blogs
+                </a>
             </div>
 
-            <div class="blog-content">
-                <Content />
+
+            <div class="blog-information">
+
+
+                <div class="content">
+
+                        <h1 >{post.data.title}</h1>
+
+                    <div class="blog-meta">
+
+                        <span>
+                            Author: {post.data.author}
+                        </span>
+
+                        <span>
+                            Published: {post.data.date}
+                        </span>
+
+                        {
+                            post.data.updated &&
+                                <span>
+                                Updated: {post.data.updated}
+                            </span>
+                        }
+
+                    </div>
+
+
+                    <div class="blog-tags">
+
+                        {
+                            post.data.tags &&
+                            post.data.tags.map((tag) => (
+                                    <span>
+                                    {tag}
+                                </span>
+                            ))
+                        }
+
+                    </div>
+
+                    <div class="blog-content">
+
+                        <Content />
+
+
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="content">
+
+                    <div class="toc-title">
+                        TABLE OF CONTENTS
+                    </div>
+
+                    <li>
+                        <a href="#top">
+                            ↑ Back to Top
+                        </a>
+                    </li>
+
+
+                    <ul>
+
+                        {
+                            toc.map((heading) => {
+                                return (
+                                        <li>
+                                            <a href={`#${heading.slug}`}>
+                                                {heading.text}
+                                            </a>
+                                        </li>
+                                );
+                            })
+                        }
+
+                    </ul>
+
+
+                </div>
+
+
             </div>
+
+
+
+
+
+
         </Window2>
+
     </div>
+
 </BaseLayout>
