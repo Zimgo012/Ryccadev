@@ -1,8 +1,9 @@
-  name: Build Astro
+name: Build Astro
 
 on:
   push:
     branches:
+      - main
       - dev
 
   pull_request:
