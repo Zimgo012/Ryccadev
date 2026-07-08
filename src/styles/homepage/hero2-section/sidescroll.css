@@ -25,7 +25,8 @@
     gap: 8px;
     padding: 6px 8px;
     cursor: pointer;
-    /*transition: 0.15s ease;*/
+    font-family: 'Tahoma', 'MS Sans Serif', Arial, sans-serif;
+    font-size: 14px;
 }
 
 /* ---------------- HOVER ---------------- */

@@ -2,11 +2,11 @@
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
 
-const env = loadEnv(process.env.NODE_ENV || "development", process.cwd(), "");
+// const env = loadEnv(process.env.NODE_ENV || "development", process.cwd(), "");
 
 export default defineConfig({
-    site: env.SITE_URL || "http://localhost:8086",
-    base: env.BASE_PATH || "/",
+    site: "http://www.rycca.dev",
+    base: "/",
 
     server: {
         port: 8086,

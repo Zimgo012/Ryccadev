@@ -7,9 +7,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 13px;
+
 
     padding: 12px 20px;
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+
 
     background-color: var(--ml-surface);
     border-top: 1px solid var(--ml-outline-variant);

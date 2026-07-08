@@ -4,6 +4,9 @@
     display: grid;
     gap: 20px;
     padding: 20px;
+    font-family: 'Tahoma', 'MS Sans Serif', Arial, sans-serif;
+    font-size: 20px;
+    line-height: 1.6;
 }
 
 .biography-content a {

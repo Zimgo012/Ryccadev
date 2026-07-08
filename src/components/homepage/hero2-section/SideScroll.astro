@@ -1,12 +1,11 @@
 ---
 import "../../../styles/homepage/hero2-section/sidescroll.css"
+import { sections } from "../../../config/sections";
 ---
 
 <div class="content" id="sideScroll"></div>
 
-<script type="module">
-    import { sections } from "../../../config/sections.js";
-
+<script define:vars={{sections}}>
     const container = document.getElementById("sideScroll");
 
     let activeItem = null;

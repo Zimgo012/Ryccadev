@@ -3,7 +3,8 @@ title: "Welcome Blog"
 summary: "First blog for portfolio"
 author: "John Rycca Belcina"
 date: "June 25, 2026"
-tags: ["General"]
+tags: 
+  - General
 ---
 
 

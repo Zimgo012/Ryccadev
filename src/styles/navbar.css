@@ -10,7 +10,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: 'Hanken Grotesk', system-ui, sans-serif;
     padding: 12px 20px;
 
     background: var(--ml-surface-container);
@@ -22,13 +21,17 @@
     gap: 20px;
 
 }
-
+.nav-logo{
+    font-size: 13px;
+    font-family: 'Tahoma', 'MS Sans Serif', Arial, sans-serif;
+}
 .nav-link, .theme-btn {
     font-size: 11px;
     letter-spacing: 0.06em;
     color: var(--ml-on-surface-variant);
     text-decoration: none;
     padding: 6px 10px;
+    font-family: 'Tahoma', 'MS Sans Serif', Arial, sans-serif;
 
     background: var(--ml-surface-container);
     border: 3px solid var(--ml-border-1);
@@ -58,6 +61,7 @@
 }
 
 .theme-btn{
+
     background-color: var(--ml-turnon);
     color: white;
 

@@ -43,14 +43,28 @@ const { collections } = Astro.props;
         previewTitle.textContent = "Preview";
         previewBody.innerHTML = html;
 
+        // Position using viewport coordinates — the window is position:fixed
         const rect = div.getBoundingClientRect();
-        const parentRect = filePane.getBoundingClientRect();
+        const vpW  = window.innerWidth;
+        const vpH  = window.innerHeight;
 
-        previewWindow.style.left =
-            `${rect.right - parentRect.left + 15}px`;
+        const previewW = previewWindow.offsetWidth || 480;
+        const previewH = previewWindow.offsetHeight || 280;
 
-        previewWindow.style.top =
-            `${rect.top - parentRect.top + 100}px`;
+        // Try to the right of the clicked item; fall back to the left
+        let left = rect.right + 12;
+        if (left + previewW > vpW - 12) {
+            left = rect.left - previewW - 12;
+        }
+        // Clamp to viewport edges
+        left = Math.max(12, Math.min(left, vpW - previewW - 12));
+
+        // Align top to the clicked item, but keep within viewport
+        let top = rect.top;
+        top = Math.max(12, Math.min(top, vpH - previewH - 12));
+
+        previewWindow.style.left = `${left}px`;
+        previewWindow.style.top  = `${top}px`;
     }
 
     function renderFiles(sectionKey) {
@@ -259,6 +273,8 @@ const { collections } = Astro.props;
         renderFiles(e.detail);
     });
 
-    filePane.innerHTML = "";
+    // Render the first section (projects) immediately on load
+    // so the pane isn't empty if the section-change event fires before this listener registers
+    renderFiles(Object.keys(sections)[0]);
 
 </script>
