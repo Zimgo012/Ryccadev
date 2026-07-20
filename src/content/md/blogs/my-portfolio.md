@@ -1,6 +1,6 @@
 ---
 title: My-Portfolio
-summary: ""
+summary: A blog on how I created and deploy my portfolio website
 author: John Rycca Belcina
 date: July 21, 26
 tags:
@@ -12,7 +12,7 @@ tags:
   - Astro
   - Self-Hosted
 ---
-Hello World, in this blog, I will be talking about how I deployed my personal portfolio website. At first, I wanted to use third party services to deploy this, but since I've come to think that I've never  tried creating a server from scratch, deploy any application to that server. Might as well I'll try it this time. Before doing anything else, I've gathered all possible requirements that I need.
+Hello World. In this blog, I will be documenting how I deployed my personal portfolio website. At first, I was planning to use third-party services to host my website. However, I realized that I had never actually created a server from scratch, configured it, secured it, and deployed an application directly into it. Instead of using a managed platform, I decided to try setting everything up myself. I wanted to understand what actually happens behind the scenes when a website is deployed and accessed through the internet. Before starting this project, I gathered the main requirements that I needed:
 ### Requirements
 - **App Running**
 - **VPS**
@@ -22,6 +22,8 @@ Hello World, in this blog, I will be talking about how I deployed my personal po
 - **Load balancer**
 - **Automated deployment**
 - **Monitoring** 
+
+This project was not only about putting my portfolio online. It was also a learning experience where I could understand more about servers, networking, security, and deployment workflows.
 
 ---
 
@@ -145,294 +147,710 @@ Astro converts this file into HTML while keeping my custom layout and styles.
 These are just few of the things that Astro can do a lot of thing. Check it out here at [Astro official webpage](https://astro.build).
 
 ---
+---
+
 ## Virtual Private Server
 
- Before VPS providers became common, developers could host applications directly from their own computers. Instead of renting a server from a cloud provider, your personal computer would act as the server. The computer would run the application, connect to the internet, and accept requests from users.  However, this approach has limitations. Your computer must stay powered on and connected to the internet at all times. You are also responsible for hardware failures, network configuration, security, and maintaining the server environment. Because of these limitations, VPS providers became popular by allowing developers to rent a virtual server that is always online, hosted in a professional data center, and accessible from anywhere.
+Before VPS providers became common, developers usually hosted applications directly from their own computers.
 
-Now the next step is to find a VPS provider. Before everything else, what is a VPS?
+The idea was simple: the computer would act as the server. It would run the application, connect to the internet, and accept requests from users.
 
-A `VPS (Virtual Private Server)`is, to simplify, your own virtual computer in the cloud. It is a virtual machine hosted on a physical server managed by a cloud provider. This computer can then be configured to run and serve your applications over the internet, such as websites, APIs, databases, or other services. There are couple VPS provider such as DigitalOcean, Azure, AWS, Linode , and more. The provider I chose is `Oracle` since they are giving a generous stuffs.
+However, this approach has many limitations. The computer needs to stay powered on and connected to the internet at all times. I would also need to handle hardware failures, networking configuration, security, and maintaining the server environment.
+
+Because of these limitations, VPS providers became popular. Instead of managing physical hardware, I can rent a virtual server from a cloud provider that is already connected to the internet and designed to run applications continuously.
+
+Before setting everything up, I first needed to understand what a VPS actually is.
+
+A **VPS (Virtual Private Server)** is, to simplify, my own virtual computer in the cloud.
+
+A VPS is a virtual machine running on a physical server managed by a cloud provider. The provider manages the underlying hardware, while I get my own isolated environment where I can install software, configure networking, and deploy applications.
+
+This virtual machine can then be used to host different types of services:
+
+- Websites
+- APIs
+- Databases
+- Background services
+- Development environments
+
+There are many VPS providers available, such as DigitalOcean, AWS, Azure, Linode, and more.
+
+For this project, I decided to use **Oracle Cloud** because they provide a generous free tier that is enough for hosting a personal portfolio website.
 
 #### Making Oracle Free Tier
-The first step is to create an Oracle free tier account. Visit [Oracle Free Tier Account](https://www.oracle.com/ca-en/cloud/free/) and create an account.
+
+The first step was creating an Oracle Cloud free tier account.
+
+I signed up through the [Oracle Free Tier Account](https://www.oracle.com/ca-en/cloud/free/) and created my account.
+
+After logging in, I started setting up the networking and compute resources needed for my VPS.
 
 #### High-level Setup Diagram
+
 ![VPS High level diagram](../../../../public/blog-pictures/my-portfolio/vps-high-level-diagram.png) 
 
 #### Making VCN
-A `VCN(Virtual Cloud Network)`  is a private network inside the cloud. It is similar as having a home network but exist on the cloud. Lets create this in Oracle.
 
-- Click the hamburger button `☰`, go to networking and `virtual cloud networks`. ![vcn1](../../../../public/blog-pictures/my-portfolio/vcn1.png)
--  Lets create a VCN.![vcn2](../../../../public/blog-pictures/my-portfolio/vcn2.png)
-- Lets set up the VCN. ![vcn3](../../../../public/blog-pictures/my-portfolio/vcn3.png)
-- Click a create to `create` this VCN
+A `VCN(Virtual Cloud Network)` is a private network inside the cloud.
+
+It is similar to having a home network, but instead it exists inside the cloud environment. It allows me to control how my cloud resources communicate with each other and with the public internet.
+
+I created my VCN inside Oracle:
+
+- Click the hamburger button `☰`, go to **Networking** and select **Virtual Cloud Networks**.
+
+![vcn1](../../../../public/blog-pictures/my-portfolio/vcn1.png)
+
+- Create a new VCN.
+
+![vcn2](../../../../public/blog-pictures/my-portfolio/vcn2.png)
+
+- Configure the VCN settings.
+
+![vcn3](../../../../public/blog-pictures/my-portfolio/vcn3.png)
+
+- Click **Create** to create the VCN.
 
 #### Creating Instance for the VPS
 
-- Click the hamburger button `☰`, go to networking and `instances`. ![vps1](../../../../public/blog-pictures/my-portfolio/vps1.png)
-- Create Instance `+` ![vps2](../../../../public/blog-pictures/my-portfolio/vps2.png)
--  Lets select an image. (*Note that I will use a less stronger instance this time since the ampere based processor is not available sometimes* )![vps4](../../../../public/blog-pictures/my-portfolio/vps4.png)
-- Select a shape ![vps5](../../../../public/blog-pictures/my-portfolio/vps5.png)
-- Leave the security settings default (*i changed this something later*)![vps6](../../../../public/blog-pictures/my-portfolio/vps6.png)
-- Set the VCN to the created VCN earlier![vps7](../../../../public/blog-pictures/my-portfolio/vps7.png)
-- **IMPORTANT!** Download the ssh key and public key. Make sure to save it somewhere now because you cannot download it later. ![vps8](../../../../public/blog-pictures/my-portfolio/vps8.png)
-- Set up boot volume. Free tier can only have upto 200gb across all instances. we can also set vpu. This let you change  the disk instantly. But for me since I'm not doing heavy proccesses, I'm just going for the balanced 10. read this document from oracle to learn about it more: https://docs.oracle.com/en-us/iaas/Content/Block/Concepts/blockvolumeperformance.html ![vps9](../../../../public/blog-pictures/my-portfolio/vps9.png)
-- Create the instance. ![vps10](../../../../public/blog-pictures/my-portfolio/vps10.png)
+After creating the VCN, I needed to create the actual virtual machine.
+
+- Click the hamburger button `☰`, go to **Compute** and select **Instances**.
+
+![vps1](../../../../public/blog-pictures/my-portfolio/vps1.png)
+
+- Click **Create Instance**.
+
+![vps2](../../../../public/blog-pictures/my-portfolio/vps2.png)
+
+- Select an image.
+
+For this project, I used Ubuntu because it is commonly used for server environments and has a lot of available documentation.
+
+*(Note: I used a less powerful instance this time since the Ampere-based processor is not always available.)*
+
+![vps4](../../../../public/blog-pictures/my-portfolio/vps4.png)
+
+- Select a shape.
+
+The shape determines the resources allocated to my VPS, such as CPU and memory.
+
+Since this is only a personal portfolio website, I selected a smaller instance because I do not need a lot of computing power.
+
+![vps5](../../../../public/blog-pictures/my-portfolio/vps5.png)
+
+- Leave the security settings as default.
+
+I changed some of these settings later when configuring firewall rules and SSH security.
+
+![vps6](../../../../public/blog-pictures/my-portfolio/vps6.png)
+
+- Set the VCN to the VCN I created earlier.
+
+![vps7](../../../../public/blog-pictures/my-portfolio/vps7.png)
+
+- **IMPORTANT!** Download the SSH key and public key.
+
+I made sure to save them somewhere safe because Oracle does not allow me to download the private key again later.
+
+![vps8](../../../../public/blog-pictures/my-portfolio/vps8.png)
+
+- Set up the boot volume.
+
+The free tier can have up to 200GB of storage across all instances.
+
+I can also configure VPU (Volume Performance Units), which allows me to adjust the disk performance.
+
+Since I am not running heavy processes, I decided to use the balanced configuration.
+
+I read more about Oracle block volume performance here:
+
+https://docs.oracle.com/en-us/iaas/Content/Block/Concepts/blockvolumeperformance.html
+
+![vps9](../../../../public/blog-pictures/my-portfolio/vps9.png)
+
+- Create the instance.
+
+![vps10](../../../../public/blog-pictures/my-portfolio/vps10.png)
+
+At this point, I had my own VPS running in Oracle Cloud. The next step was configuring the server environment and preparing it to host my website.
+
+---
+---
+
 ---
 
 ## Setting up VPS
 
-#### SSH to the VPS
-Now lets first ssh to our VPS. (*I will make a blog about how ssh commands and how it works some time. For now I will just use this as a reference: https://www.digitalocean.com/community/tutorials/ssh-essentials-working-with-ssh-servers-clients-and-keys* )
+After creating my VPS, the next step was configuring the server environment.
 
-- Let's go inside the vps we created using ssh. We need the keys that we downloaded earlier. We also need the public ip address that our instance in oracle is using.
-- Command to go inside vps:
+#### SSH to the VPS
+
+The first thing I needed to do was connect to my VPS using SSH.
+
+*(I will make a blog about how SSH commands work and how the protocol works in detail sometime. For now, I will use this as a reference: https://www.digitalocean.com/community/tutorials/ssh-essentials-working-with-ssh-servers-clients-and-keys)*
+
+To connect to the VPS, I needed the SSH private key that I downloaded earlier and the public IP address assigned to my Oracle instance.
+
+The command to connect:
 
 ```bash
 ssh -i <drag-key-file-here> ubuntu@ip_address
 ```
-#### Update system packages
-Lets update our ubuntu, and update its pre installed applications and services. This also fixes security vulnerabilities and prevents weird install bugs later
-- Command to update:
+
+After successfully connecting, I was now inside my VPS and could start configuring the environment.
+
+---
+
+#### Update System Packages
+
+The first thing I did was update Ubuntu and its pre-installed packages.
+
+This helps keep the system updated, fixes known security vulnerabilities, and prevents possible installation issues later.
+
+Command to update:
+
 ```bash
-  sudo apt update && sudo apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 ```
-#### Install essential tools
-Now I'm going to install all the essential tools that we may be need in the future.
-- List of the tools:
 
-| Tool     | Purpose                       |
+---
+
+#### Install Essential Tools
+
+Next, I installed some essential tools that I would need while managing my VPS.
+
+These tools help with debugging, editing configurations, monitoring resources, and deploying applications.
+
+List of tools:
+
+| Tool | Purpose |
 | -------- | ----------------------------- |
-| git      | pulls project or debug builds |
-| curl     | test APIs / downloads         |
-| wget     | fetch files                   |
-| unzip    | handle archives               |
-| vim/nano | edit server config files      |
-| htop     | monitor CPU/RAM usage         |
-| rsync    | efficient file deployment     |
+| git | pulls project or debug builds |
+| curl | test APIs / downloads |
+| wget | fetch files |
+| unzip | handle archives |
+| vim/nano | edit server configuration files |
+| htop | monitor CPU/RAM usage |
+| rsync | efficient file deployment |
 
-- Command/s to install tools:
-``` bash
+Command to install:
+
+```bash
 sudo apt install git curl wget unzip vim nano htop rsync -y
 ```
+
+---
+
 #### Adding Swap (Virtual Memory)
-I need to to have a virtual for my instance just in case because I only have the 1gb one. 
-So what is virtual memory? 
-**Virtual memory** is a memory management technique used by operating systems to give the appearance of a large continaous block of memory to application even if the physical memory is limited 
+
+Since I was using a smaller VPS instance with only 1GB of RAM, I decided to add swap memory as an extra safety measure.
+
+So what is virtual memory?
+
+**Virtual memory** is a memory management technique used by operating systems to give applications the appearance of having more memory than the available physical RAM.
+
+Instead of immediately failing when RAM is exhausted, the operating system can use disk space as temporary memory.
+
 ![swap](../../../../public/blog-pictures/my-portfolio/swap.png)
-- Lets setup the swap using this command:
+
+I created a 2GB swap file using these commands:
+
 ```bash
-sudo fallocate -l 2G /swapfile #allocates 2GB worth of swap
-sudo chmod 600 /swapfile #modifies permission
-sudo mkswap /swapfile #- prepares the file so Linux recognizes it as swap memory
-sudo swapon /swapfile #activate swap
+sudo fallocate -l 2G /swapfile # allocates 2GB worth of swap
+sudo chmod 600 /swapfile # modifies permissions
+sudo mkswap /swapfile # prepares the file so Linux recognizes it as swap memory
+sudo swapon /swapfile # activates swap
 ```
--  lets activate the swap:
+
+Then I made the swap permanent so it would still exist after restarting the VPS:
+
 ```bash
-echo 'swapfile none swap sw 0 0' | sudo tee -a etc/fstab
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 ```
+
+---
+
 #### Firewall
-Firewall is a security layer that control network traffic specifically for our virtualized server environment. It ensures our isolated slice of the server is protected from external internet traffic. 
 
-During this project, I got so many problems with the connections and main cause of it was the firewall. I later then found out that oracle explicitly warns against UFW (Uncomplicated Firewall). This is a program to easily configure netfilter firewall rules on Linux. 
-`Do not use Uncomplicated Firewall (UFW) to edit firewall rules on an Ubuntu image.`
-https://docs.oracle.com/en-us/iaas/Content/Compute/References/bestpracticescompute.html Oracles default security setup will still completely block the website until i fix those iptable rule manually. 
+A firewall is a security layer that controls network traffic coming into and leaving my server.
 
-The difference between UFW and iptables is that UFW is just an interface that writes backend rules to Linux's core firewall which is the iptables.
+It helps protect my VPS by controlling which ports are accessible from the public internet.
+
+During this project, I ran into many connection issues, and the main cause was related to firewall rules.
+
+Later, I found out that Oracle specifically warns against using UFW (Uncomplicated Firewall) on their Ubuntu images.
+
+UFW is a tool that simplifies configuring Linux firewall rules. However, Oracle's default security setup uses its own networking rules, and using UFW can cause unexpected behavior.
+
+Oracle documentation states:
+
+> Do not use Uncomplicated Firewall (UFW) to edit firewall rules on an Ubuntu image.
+
+Reference:
+
+https://docs.oracle.com/en-us/iaas/Content/Compute/References/bestpracticescompute.html
+
+The difference between UFW and iptables is that UFW is only an interface that manages the actual Linux firewall system, which is iptables.
 
 ![linux-netfliter](../../../../public/blog-pictures/my-portfolio/firewall.png)
-Lets setup the firewall now:
 
-- Lets turn off any UFW just to be sure
+I configured my firewall using iptables directly.
+
+First, I disabled UFW to make sure it was not interfering:
+
 ```bash
-sudo ufw reset # reset configuration
-sudo ufw disable #disable on boot
+sudo ufw reset
+sudo ufw disable
 ```
-- Now lets see all rules in order
+
+Next, I checked the existing firewall rules:
+
 ```bash
 sudo iptables -L INPUT -n --line-numbers
 ```
-- Now lets allow some port with iptables, lets make and insert the rule, and make sure to run it before eveything else.
+
+Then I allowed required ports.
+
+For example, allowing HTTP traffic:
 
 ```bash
 sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
 ```
 
-- Do the same for other ports
+I repeated the same process for other required ports:
+
 ```bash
 sudo iptables -I INPUT 1 -p tcp --dport <port-number> -j ACCEPT
 ```
-- Let's save the current rules
+
+After configuring the rules, I saved the current firewall configuration:
+
 ```bash
 sudo netfilter-persistent save
 ```
-- (optionally, install a service that saves and restore firewall automatically on reboot)
+
+To automatically restore firewall rules after reboot, I installed iptables-persistent:
+
 ```bash
 sudo apt install iptables-persistent -y
 ```
+
+---
+
 #### Basic Protection
-Lets add a basic protection package. fail2ban detects repeated failed logins and bans IPs automatically using ssh
+
+After setting up the firewall, I added a basic protection package.
+
+I installed **Fail2Ban**, which monitors failed login attempts and automatically blocks suspicious IP addresses.
 
 ```bash
 sudo apt install fail2ban -y
 ```
 
+---
 
-#### More SSH hardening
-Now I wanted to have more control over my vps. I restricted every ip address except my home ip addresss. I'm still trying to harden my ssh access as I can until this present.
+#### More SSH Hardening
+
+After securing the basic firewall rules, I wanted more control over my VPS access.
+
+I restricted SSH access by allowing only my own IP address instead of allowing every IP address.
+
+I am still continuing to improve my SSH security and harden my server as I learn more about server administration.
+
+---
+---
 
 ---
 
 ## Setting up Web Server (NGINX)
 
-We need a program that processes incomming network requests from the public internet using http / https protocols and sends back corresponding website data. That why we are installing nginx. Before installing this, lets know first what nginx is. 
+After configuring my VPS, I needed a program that could handle incoming requests from the public internet and return my website files.
 
-NGINX is a high-performance open-source HTTP web server, reverse proxy, content cache, and load balancer. In analogy, It serves like a traffic controller inside your vps. When a user access your vps, it serves what the user wants and help to manage network traffic easily. *I wil make a blog about nginx as well in the future :)*
+This is where NGINX comes in.
 
-#### Setup NGINX
-Now lets setup nginx.
+Before installing it, I first needed to understand what NGINX actually does.
 
-- Inside our vps, lets run the command to install nginx
+NGINX is a high-performance open-source web server, reverse proxy, content cache, and load balancer.
+
+In simple terms, I can think of NGINX as a traffic controller inside my VPS. When a user accesses my website, NGINX receives the request, determines what the user needs, and returns the correct content.
+
+*(I will make a blog about NGINX and how it works in more detail in the future.)*
+
+---
+
+## Setting up NGINX
+
+The first step was installing NGINX inside my VPS.
+
 ```bash
 sudo apt install nginx -y
 ```
-- Lets make nginx to run on boot:
+
+After installing it, I configured NGINX to start automatically whenever the VPS boots.
+
 ```bash
 sudo systemctl enable nginx
 ```
-- Lets start nginx
+
+Then I started the NGINX service:
+
 ```bash
 sudo systemctl start nginx
 ```
 
-#### Creating project directory
+At this point, NGINX was running on my server.
 
-- Lets create the project directory. This is where we put our finished build file or project.
+---
+
+## Creating Project Directory
+
+Next, I created a directory where I would store my website build files.
+
 ```bash
 sudo mkdir -p /var/www/project
 ```
-- Grant current user access to it with:
+
+I then changed the ownership of the directory so my current user could manage the files without needing root access.
+
 ```bash
 sudo chown -R $USER:$USER /var/www/project
 ```
 
-#### Changing subnet rules in oracle
-We need to change some subnet rules in oracle so the internet can access the port we want to produce.
+---
 
-Here's how:
-- Go to the instance ![subnet1](../../../../public/blog-pictures/my-portfolio/subnet1.png)
-- Scroll down to VNIC and select the VCN thats being used![subnet2](../../../../public/blog-pictures/my-portfolio/subnet2.png)
-- Go to security![subnet3|669](../../../../public/blog-pictures/my-portfolio/subnet3.png)
-- Add Ingress Rule![subnet4](../../../../public/blog-pictures/my-portfolio/subnet4.png)
-- Add rules for port 443 and 80 (HTTP and HTTPS) ![subnet5](../../../../public/blog-pictures/my-portfolio/subnet5.png)
-- Set the range of port to 0.0.0.0/0 (*everyone since this is a portfolio website, if we created some management stuff or api thats private then we assign this to the ip we wanted to provide service for*)![subnet6](../../../../public/blog-pictures/my-portfolio/subnet6.png)
+## Changing Subnet Rules in Oracle
 
-####  Create test page and test connection
+Even though NGINX was running, my website was still not publicly accessible.
 
-Inside vps:
+Oracle Cloud has another layer of networking security called security lists. I needed to allow incoming traffic through the required ports.
+
+I needed to open:
+
+- Port 80 for HTTP
+- Port 443 for HTTPS
+
+Steps:
+
+- Go to my instance.
+
+![subnet1](../../../../public/blog-pictures/my-portfolio/subnet1.png)
+
+- Scroll down to VNIC and select the VCN being used.
+
+![subnet2](../../../../public/blog-pictures/my-portfolio/subnet2.png)
+
+- Go to security.
+
+![subnet3|669](../../../../public/blog-pictures/my-portfolio/subnet3.png)
+
+- Add an ingress rule.
+
+![subnet4](../../../../public/blog-pictures/my-portfolio/subnet4.png)
+
+- Add rules for port 80 and 443.
+
+![subnet5](../../../../public/blog-pictures/my-portfolio/subnet5.png)
+
+- Set the source CIDR to `0.0.0.0/0`.
+
+This allows anyone on the internet to access my website.
+
+Since this is only a portfolio website, allowing public access is fine. However, for private services such as internal APIs or management tools, I would restrict access to specific IP addresses.
+
+![subnet6](../../../../public/blog-pictures/my-portfolio/subnet6.png)
+
+---
+
+## Creating Test Page and Testing Connection
+
+Before deploying my actual website, I wanted to make sure that NGINX was working correctly.
+
+Inside my VPS, I created a simple HTML page:
+
 ```bash
 echo "<h1>Server Works</h1>" > /var/www/project/index.html
 ```
 
-and visit `http://your_publicipv4` or curl it inside your vps.
+I could then test it by visiting:
 
+```
+http://your_public_ipv4
+```
 
-#### Configure Nginx
+or using curl inside the VPS:
 
-Create a site config for nginx. Edit the configure with:
+```bash
+curl http://localhost
+```
+
+If everything was configured correctly, I should see the test page.
+
+---
+
+## Configure NGINX
+
+The next step was creating my own NGINX configuration.
+
+I created a new site configuration:
 
 ```bash
 sudo nano /etc/nginx/sites-available/project
 ```
 
-Then paste the configuration:
-```JSON
+Then I added my configuration:
+
+```nginx
 server {    
-	listen 80 default_server;
-	listen [::]:80 default_server;    
-	server_name _;    
-	root /var/www/portfolio;    
-	index index.html;    
-	location / 
-		{        
-		try_files $uri $uri/ =404;    
-		}
-	}
+    listen 80;
+    listen [::]:80;
+
+    server_name _;
+
+    root /var/www/portfolio;
+
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
 ```
 
-Then enable this with:
-``` bash
+This configuration tells NGINX:
+
+- Listen for HTTP requests on port 80.
+- Use `/var/www/portfolio` as the website directory.
+- Serve `index.html` as the default page.
+- Return a 404 error if the requested file does not exist.
+
+---
+
+## Enabling NGINX Configuration
+
+After creating the configuration, I enabled it by creating a symbolic link.
+
+```bash
 sudo ln -s /etc/nginx/sites-available/portfolio /etc/nginx/sites-enabled/
 ```
 
-Change default_server port of nginx with:
+By default, NGINX comes with a default server configuration. I needed to remove the default server because it was conflicting with my own configuration.
+
+I edited:
+
 ```bash
 sudo nano /etc/nginx/sites-available/default
 ```
 
-and remove default_server port 80 like as shown:
+Then I removed the default server listening on port 80.
+
 ![nginxdefault](../../../../public/blog-pictures/my-portfolio/nginxdefault.png)
 
-reload nginx:
-``` bash
-sudo nginx -tsudo systemctl reload nginx
+After making changes, I tested the NGINX configuration:
+
+```bash
+sudo nginx -t
 ```
+
+If the configuration was valid, I reloaded NGINX:
+
+```bash
+sudo systemctl reload nginx
+```
+
+At this point, my VPS was ready to serve website files.
+
+---
 ---
 
-## Deploying application (manually)
+---
 
-Now I finished setting up vps and web server. I will try to deploy the application manually then forward the build to my vps. I dont want to build my project inside my vps since I have low RAM gb. Swap helps but still slow. So automatic build happens on local or github then forward build files to vps. But now Im going to try to deploy in my local and forward it to my vps
+## Deploying Application (Manually)
 
-- Deploying my astro project with
+After finishing my VPS and web server setup, the next step was deploying my actual application.
+
+For the first deployment, I decided to do it manually before setting up automation.
+
+I did not want to build my Astro project directly inside my VPS because the instance I was using only had limited RAM. Although I added swap memory, building projects inside the server would still be slower.
+
+Instead, I decided to build the project locally and only transfer the final build files to my VPS.
+
+The deployment flow looked like this:
+
+```
+Local Machine
+      |
+      | npm run build
+      |
+      v
+Astro Static Files
+      |
+      | rsync
+      |
+      v
+Oracle VPS
+      |
+      v
+NGINX
+      |
+      v
+Website
+```
+
+---
+
+### Building Astro Project
+
+Inside my local machine, I built my Astro project using:
+
 ```bash
 npm run build
 ```
 
-- Upload build with rsync (forward to the directory)
-```bash
-rsync -avz -e "ssh -i '<keyhere>' dist/ ubuntu@SERVER_IP:/var/www/portfolio/
-```
-
-- Then test it by visiting `http://my_public_ip`
+Astro generated the final static files inside the `dist` directory.
 
 ---
 
-## Setting up DNS
+### Uploading Build Files Using rsync
 
-DNS stands for Domain Name System. It acts like phonebook where instead of entering the public ip address, it translates into human-readable names like for example `google.com`, `facebook.com`, etc.
+I used `rsync` to transfer my build files from my local machine to my VPS.
 
-Now there are different dns provider and the setup differs from each other. I used [spaceship.com](https://www.spaceship.com) as my dns provider since their dns is kinda cheap and they provide some great free services too. 
+```bash
+rsync -avz -e "ssh -i '<keyhere>'" dist/ ubuntu@SERVER_IP:/var/www/portfolio/
+```
 
-Steps on how i setup my dns:
-- Bought a dns
-- Configure DNS Records![dns1](../../../../public/blog-pictures/my-portfolio/dns1.png)
-- Wait to progpagate
-- Test by visiting the actual dns
+The command transfers the generated files into the directory that NGINX is serving.
+
+After uploading the files, I tested the website by visiting:
+
+```
+http://my_public_ip
+```
+
+At this point, my portfolio website was accessible through my VPS IP address.
 
 ---
 
-## HTTPS
+# Setting up DNS
 
-**HTTP** transmits data as plain text, making it vulnerable to interception. **HTTPS** (HTTP Secure) adds a TLS/SSL encryption layer, scrambling the data so only the intended recipient can read it. 
+After successfully deploying my website, the next step was connecting my domain name to my VPS.
 
-Lets make our website https:
-- Install certbot:
-```bash
-sudo apt install certbot python3-certbot-nginx -ysudo certbot --nginx
+DNS stands for **Domain Name System**.
+
+It works like a phonebook for the internet. Instead of users remembering a public IP address such as:
+
 ```
-- Run certbot:
+123.123.123.123
+```
+
+they can use a human-readable domain name such as:
+
+```
+example.com
+```
+
+The DNS system translates the domain name into the server's IP address.
+
+---
+
+There are many DNS providers available, and the setup process differs depending on the provider.
+
+For my project, I used [Spaceship](https://www.spaceship.com) as my domain provider because their pricing was affordable and they provide useful DNS management features.
+
+The steps I followed:
+
+- Purchased a domain name.
+- Configured DNS records.
+
+![dns1](../../../../public/blog-pictures/my-portfolio/dns1.png)
+
+- Waited for DNS propagation.
+- Tested the domain by visiting it.
+
+After the DNS records propagated, my domain successfully pointed to my VPS.
+
+---
+
+# Setting up HTTPS
+
+After setting up DNS, the next step was securing my website with HTTPS.
+
+**HTTP** sends data as plain text, which means the communication between the client and server can potentially be intercepted.
+
+**HTTPS** adds a TLS/SSL encryption layer, allowing data to be transferred securely between the user and the server.
+
+To enable HTTPS, I used Certbot.
+
+---
+
+## Installing Certbot
+
+First, I installed Certbot and the NGINX plugin:
+
+```bash
+sudo apt install certbot python3-certbot-nginx -y
+```
+
+Then I ran Certbot:
+
 ```bash
 sudo certbot --nginx
 ```
+
 ![certbot1](../../../../public/blog-pictures/my-portfolio/certbot1.png)
+
 ![certbot2](../../../../public/blog-pictures/my-portfolio/certbot2.png)
 
-check certbot documentation here: https://certbot.eff.org
+Certbot automatically:
+
+- Requested an SSL certificate.
+- Configured NGINX.
+- Enabled HTTPS.
+- Set up certificate renewal.
+
+After completing this step, my website was now accessible securely through HTTPS.
+
+More information about Certbot can be found here:
+
+https://certbot.eff.org
 
 ---
+---
+---
+
 ## Automated Deployment Setup
 
-To automate my deployment, I used github actions to do it for me. I used this workflow to automate my deployment
+After successfully deploying my website manually, I wanted to automate the deployment process.
+
+Manually building and uploading files works, but it becomes repetitive every time I make changes to my website.
+
+To solve this, I used **GitHub Actions** to automatically build my Astro project and deploy the generated files to my VPS whenever I push changes to my main branch.
+
+My deployment workflow:
+
+```
+Developer
+    |
+    | git push
+    |
+    v
+GitHub Actions
+    |
+    | npm install
+    | npm run build
+    |
+    v
+Upload dist files
+    |
+    v
+Oracle VPS
+    |
+    v
+NGINX serves website
+```
+
+I created a GitHub Actions workflow to handle this process:
+
 ```yml
 name: Deploy VPS
 
@@ -472,14 +890,73 @@ jobs:
           target: "/var/www/rycca.dev"
 ```
 
+This workflow automatically:
 
-I also created different user inside my VPS intended only for deployments. Then I created different ssh keys tied to that user and used it in my workflow.
+1. Checks out my latest code.
+2. Installs the required dependencies.
+3. Builds my Astro website.
+4. Uploads the generated files to my VPS.
 
-## Setting up monitoring and logging
+---
 
-Since this is not that big heavy project, I used built in logs with tmux to easily view different areas of the the logs. 
+## Creating Deployment User
 
-Heres my tmux setup:
+For security reasons, I did not want my GitHub Actions workflow to use my main VPS user.
+
+Instead, I created a separate user specifically for deployments.
+
+I created separate SSH keys tied to this deployment user and stored the private key inside GitHub Secrets.
+
+This way:
+
+- My main user credentials are not exposed.
+- The deployment process has only the permissions it needs.
+- I can disable deployment access separately if needed.
+
+---
+
+## Setting up Monitoring and Logging
+
+Since this is not a large-scale application with many services, I decided to keep monitoring simple.
+
+For now, I used built-in Linux logs and `tmux` to easily monitor different areas of my VPS.
+
+`tmux` allows me to create multiple terminal sessions inside one SSH connection.
+
+This is useful because I can keep different monitoring commands running at the same time.
+
+My current tmux setup:
 
 ![tmux](../../../../public/blog-pictures/my-portfolio/tmux1.png)
+
 ![tmux2](../../../../public/blog-pictures/my-portfolio/tmux2.png)
+
+For a larger production system, I would consider adding more advanced monitoring tools such as:
+
+- Prometheus
+- Grafana
+- Log aggregation systems
+- Server health monitoring services
+
+However, for a personal portfolio website, this setup is enough for my current needs.
+
+---
+
+## Reflection
+
+After completing this project, I gained a better understanding of what happens behind a deployed website.
+
+Previously, deploying a website mostly meant pushing code to a hosting platform and letting the platform handle everything.
+
+By deploying this manually, I had to understand different parts of the process:
+
+- How DNS connects a domain to a server.
+- How a VPS works.
+- How firewalls control access.
+- How NGINX serves web content.
+- How HTTPS certificates work.
+- How automated deployment pipelines are created.
+
+There were many issues during the process, especially with networking and firewall configuration. However, troubleshooting these problems helped me understand how different layers of a deployment stack communicate with each other.
+
+This project gave me a better foundation in server administration and deployment workflows. Although this setup is simple compared to a production environment, it gave me the experience of managing a server from the ground up.
