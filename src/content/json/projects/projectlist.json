@@ -3,7 +3,7 @@
     {
       "name": "Q Booking App",
       "summary": "An all-in-one booking solution designed for modern businesses",
-      "projectlink": "https:www.qbooking.online",
+      "projectlink": "https://www.qbooking.online",
       "blogLink": "none",
       "technologies" : ["TypeScript", "Convex", "Github Actions"]
     },
